@@ -1,0 +1,279 @@
+<ion-header class="header_top">
+  <ion-toolbar>
+    <ion-title class="modal-title-full">Impresion</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeInvoiceViewModal();">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+  <div class="modal-body ng-scope" id="modal-body">
+        <div>
+            <div class="table-responsive ng-scope" style="overflow-x: hidden;">
+                <div id="printinvoice" class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <div class="receipt-template">
+                            <header class="receipt-header">
+                                <div class="logo-area">
+                                    <img *ngIf="printLogo" style="width: 100%; height: auto;" [src]="databasePicture">
+                                </div>
+                                <h2 class="store-name">{{company.name}}</h2>
+                                <h6>{{taxresDesc}}</h6>
+                                <h5>{{storeCode}}</h5>                                                                               
+                                <h5>NIT: {{company.FiscalID}}</h5>
+                                <div class="lineSpace"></div>
+
+                                <div class="address-area">
+                                    <span class="info address">Dirección:
+                                        {{company.Address}}</span>
+                                    <div class="lineSpace"></div>
+                                    <div class="lineSpace"></div>
+                                    <div class="block">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-align:center"><span class="info phone">Teléfono:
+                                                            {{company.PhoneNum}}</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:center"><span class="info phone">Email:
+                                                            {{company.EMailAddress}}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="lineSpace"></div>
+                                <span class="info address">{{Text3}}</span>
+                                <div class="lineSpace"></div>
+                            </header>
+
+                            <div class="info-area">
+                                <table>
+                                    <tbody>
+                                        <tr *ngIf="isInvoice">
+                                            <td class="w-30" style="text-align:left"><span>N°
+                                                    Factura:</span></td>
+                                            <td style="text-align:right">{{addInvoiceForm.value.LegalNumber}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30" style="text-align:left"><span>Fecha:</span></td>
+                                            <td style="text-align:right">{{addInvoiceForm.value.InvoiceDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                                        </tr>
+                                        <tr *ngIf="addInvoiceForm.value.customer">
+                                            <td class="w-30" style="text-align:left">Cliente:</td>
+                                            <td style="text-align:right">{{addInvoiceForm.value.CustomerName}}</td>
+                                        </tr>
+                                        <tr *ngIf="addInvoiceForm.value.customer[0]">
+                                            <td class="w-30" style="text-align:left">Identificación:</td>
+                                            <td style="text-align:right">{{addInvoiceForm.value.customer[0].TerceroNum}}</td>
+                                        </tr>
+                                        <tr *ngIf="addInvoiceForm.value.customer[0]">
+                                            <td class="w-30" style="text-align:left">Teléfono:</td>
+                                            <td style="text-align:right">{{addInvoiceForm.value.customer[0].PhoneNum}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30" style="text-align:left">Caja:</td>
+                                            <td style="text-align:right">{{cashRegisterName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-30" style="text-align:left">Cajero:</td>
+                                            <td style="text-align:right">{{userName}}
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="orderNum != 'none'">
+                                            <td class="w-30" style="text-align:left">Orden:</td>
+                                            <td style="text-align:right">{{orderNum}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="lineSpace"></div>
+                            <h4 class="main-title"> {{textInvoice}}</h4>
+                            <h6 class="main-subtitle">{{resolutionInvoice}}</h6>
+                            <div class="lineSpace"></div>
+                            <div class="lineSpace"></div>
+                            <div class="listing-area item-list">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="w-10 text-center">L.</td>
+                                            <td class="w-50 text-center">Cod/Producto</td>
+                                            <td class="w-15 text-center">Cnt</td>
+                                            <td class="w-35 text-right">Valor</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let dtl of
+                                    invoicedtls">
+                                        <tr class="response">
+                                            <td class="text-center">{{dtl.Line}}</td>
+                                            <td>
+                                                <small>[{{dtl.ItemID}}]</small> {{dtl.ItemDescription}}
+                                            </td>
+                                            <td class="text-center">{{dtl.Quantity | number:formatDecimal}}</td>
+                                            <td class="text-right">{{dtl.DocLineSubtotal | number:formatDecimal}}</td>
+
+                                        </tr>
+                                        <tr *ngIf="dtl.LineComments" class="response">
+                                            <td></td>
+                                            <td class="text-left" colspan="3">
+                                                <small>*** {{dtl.LineComments}} ***</small>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="info-area calculation-area">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="w-70">Subtotal:</td>
+                                            <td>{{addInvoiceForm.controls.DocInvoiceSubTotal.value | number : formatDecimal}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-70">Descuento:</td>
+                                            <td>{{addInvoiceForm.controls.DocDiscount.value | number : formatDecimal}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-70">Retenciones:</td>
+                                            <td>{{addInvoiceForm.controls.DocWithHoldingAmount.value | number : formatDecimal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-70">Impuesto:</td>
+                                            <td>{{addInvoiceForm.controls.DocTaxAmount.value | number : formatDecimal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-70">Total:</td>
+                                            <td>{{addInvoiceForm.controls.DocInvoiceAmount.value | number : formatDecimal }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="lineSpace"></div>
+                            <div class="lineSpace"></div>
+                            <div class="info-area italic">
+                                <span class="text-small"><b>Valor en letras:</b>
+                                    <span class="numberToLetter">
+                                        {{numberToLetter}}</span> </span>
+                                        <div class="lineSpace"></div>
+                            </div>
+                            <div class="lineSpace"></div>
+                            <div class="lineSpace"></div>
+
+                            <div class="listing-area item-list">
+                                <div class="heading">
+                                    <h2 class="sub-title">Impuestos</h2>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="w-10 text-center">Imp.</td>
+                                            <td class="w-10 text-center">Cod.</td>
+                                            <td class="w-10 text-center">%</td>
+                                            <td style="text-align: end; padding-right: 20px;">Base</td>
+                                            <td style="text-align: end;">Impuesto</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let dtl of
+                                    invoicetaxes">
+                                        <tr class="response">
+                                            <td class="text-center">{{dtl.TaxID}}</td>
+                                            <td class="text-center">{{dtl.RateCode}}</td>
+                                            <td class="text-center">{{dtl.Percent}}</td>
+                                            <td style="text-align: end; padding-right: 20px;">{{dtl.DocTaxableAmount | number:formatDecimal}}</td>
+                                            <td style="text-align: end; padding-left: 20px;">{{dtl.DocTaxAmount | number:formatDecimal}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+
+
+                            <div *ngIf="isInvoice" class="listing-area
+                                payment-list">
+                                <div class="heading">
+                                    <h2 class="sub-title">Pagos</h2>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="w-10 text-center">L.</td>
+                                            <td class="w-50 text-center">Método de pago</td>
+                                            <td class="w-20 text-right">Valor</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let dr of listPayment; let i=index">
+                                            <td class="w-10 text-center">{{i+1}}</td>
+                                            <td class="w-50 text-center">{{dr.paymentdesc}}</td>
+                                            <td class="w-20 text-right">{{dr.receipt | number : formatDecimal}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div *ngIf="isInvoice" class="info-area calculation-area">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="w-70">Total recibido:</td>
+                                            <td>{{totalAmount | number : formatDecimal}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-70">Cambio:</td>
+                                            <td>{{totalchange | number : formatDecimal}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="lineSpace"></div>
+                            <div class="lineSpace"></div>
+                            <div class="info-area">
+                                <span class="block bold">Comentarios: </span>
+                                <span class="block">{{addInvoiceForm.controls.Comments.value}}</span>
+                            </div>
+                            <div class="lineSpace"></div>
+                            <div class="lineSpace"></div>
+                            <div class="info-area align-center footer-area">
+                                <span *ngIf="showText1" class="block">{{Text1}}</span>
+                                <span *ngIf="showText2" class="block bold">{{Text2}}</span>
+                                <div class="lineSpace"></div>
+                                <span class="block bold">Elaborado en Amazonas
+                                    Erp POS NIT900665411-2 - amazonaserp.com - Fabricante BTW S.A.S</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive footer-actions" style="padding-top: 15px;">
+                    <table class="table">
+                        <tbody>
+                          <div class="ion-text-center">
+                            <ion-button (click)="printPreviw();" fill="outline">Descargar</ion-button>
+                            <ion-button (click)="print();" fill="solid">imprimir</ion-button>
+                          </div>
+                            <tr class="text-center">
+                              <td colspan="2">
+                                  <p class="powered-by">
+                                      <small>© amazonaserp.com</small>
+                                  </p>
+                              </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,66 @@
+.TableDtl {
+    &.tabla {
+        width: 99%;
+        margin-left: 1.5%;
+    }
+}
+
+.TableDtl {
+    th {
+        background-color: var(--ion-color-primary);
+        color: #fff;
+
+        &.sticky {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+    }
+}
+
+@media screen and (max-width : 500px) {
+
+    .TableDtl {
+        display: grid;
+
+        &.tabla {
+            margin-left: 1.5%;
+        }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        tbody td {
+            /* Behave  like a "row" */
+            border: none;
+            position: relative;
+            padding-left: 15% !important;
+
+            &.popup {
+                padding-left: 30% !important;
+            }
+        }
+
+        tbody td:before {
+            /* Now like a table header */
+            position: absolute;
+            /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+
+        /*
+    Label the data
+    */
+        tbody td:before {
+            content: attr(data-heading);
+        }
+    }
+}

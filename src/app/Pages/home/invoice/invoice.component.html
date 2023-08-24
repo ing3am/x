@@ -1,0 +1,128 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<ng-container *ngIf="fatherComponent; else sonComponent">
+  <!-- <ion-content>
+    <ion-card mode="ios" class="ion-no-border">
+
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-button (click)="printInvoice();" title="Imprimir">
+            <ion-icon name="print-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="openModalInvoiceComments();" title="Comentar">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="openModalSelectTranDocType();" title="Cambiar a documento electrónico">
+            <ion-icon name="document-text-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="printInvoice();" title="Guardar">
+            <ion-icon name="save-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="clearListItems();" title="Limpiar">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="openMyModal('selectCashR');">
+            <ion-label position="fixed">{{cashRegister}}</ion-label>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+
+      <form [formGroup]="addInvoiceForm">
+        <div>
+          <ion-grid>
+            <ion-row>
+              <ion-col mode="ios">
+                <ion-item>
+                  <ion-label>Fecha</ion-label>
+                  <dx-date-box [value]="now"> </dx-date-box>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col mode="ios">
+                <ion-item detail style="cursor: pointer;" (click)="openMyModal('selectCustomer');">
+                  <ion-label>
+                    Cliente:
+                  </ion-label>
+                  <ion-label slot="end">
+                    {{addInvoiceForm.value.CustomerName}}
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
+        <ion-card-header>
+          <ion-card-subtitle>Lista de Items</ion-card-subtitle>
+        </ion-card-header>
+
+
+        <ion-list formArrayName="invoicedtls" style="padding: 0px 20px">
+          <ion-item *ngFor="let dtl of addInvoiceForm.controls.invoicedtls['controls']; let i=index" [formGroupName]="i"
+            class="invoice-item animated fadeInLeft">
+            <div class="invoice-item__container">
+              <div class="invoice-item__data">
+                <p class="invoice-item__name">{{ g[i].get('ItemDescription').value }}</p>
+                <div class="invoice-item__icon">
+                  <ion-icon (click)="lineDetail(i)" id="IconlineDetail" name="finger-print-outline"
+                    matTooltip="Detalle de la línea" [matBadge]="CommentInvoice" matBadgeSize="large"
+                    matBadgeOverlap="true" matBadgeSize="small" [matBadgeHidden]="hideCommentInvoice"
+                    matBadgeColor="success"></ion-icon>
+                </div>
+              </div>
+
+              <div class="invoice-item__quantity">
+                <div class="invoice-item__quantity-change"
+                  [ngClass]="{'hide_quantity': isMobile, 'show_quantity': !isMobile}">
+                  <ion-button (click)="downqty($event,i)">
+                    <ion-icon name="arrow-down"></ion-icon>
+                  </ion-button>
+                </div>
+                <p>{{ g[i].get('Quantity').value }}</p>
+                <div class="invoice-item__quantity-change"
+                  [ngClass]="{'hide_quantity': isMobile, 'show_quantity': !isMobile}">
+                  <ion-button (click)="upqty($event,i)">
+                    <ion-icon name="arrow-up"></ion-icon>
+                  </ion-button>
+                </div>
+              </div>
+
+              <div class="invoice-item__totals" style="margin-left: 0px;">
+                <p *ngIf="priceAfterTax">
+                  ${{ g[i].get('DocLineSubtotalTax').value | number:formatDecimal }}
+                </p>
+                <p *ngIf="!priceAfterTax">
+                  ${{ g[i].get('DocLineSubtotal').value | number:formatDecimal }}
+                </p>
+              </div>
+
+              <ion-button (click)="deleteInvoiceLine(i)" class="invoice-item__trash" style="margin-left: 2%">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-item>
+        </ion-list>
+
+      </form>
+    </ion-card>
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="showListItems()">
+        <ion-icon name="reader-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </ion-content> -->
+</ng-container>
+
+<!-- Lista de Productos -->
+<ng-template #sonComponent>
+  <app-list-items (listItemEvent)="getListItems($event)" [listItemFather]="listItemSelected"></app-list-items>
+</ng-template>

@@ -1,0 +1,133 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<ion-card class="card_reports">
+
+  <form [formGroup]="formReport">
+    <ion-grid fixed>
+      <h1>Resumen de ventas</h1>
+      <ion-row>
+        <ion-col size="6" size-md="3" size-lg="3">
+          <dx-date-box displayFormat="yyyy-MM-dd" formControlName="fechaInicio"
+            placeholder="Fecha Inicio"></dx-date-box>
+        </ion-col>
+        <ion-col size="6" size-md="3" size-lg="3">
+          <dx-date-box displayFormat="yyyy-MM-dd" formControlName="fechaFinal" placeholder="Fecha Fin"></dx-date-box>
+        </ion-col>
+        <ion-col size="12" size-md="2" size-lg="2">
+          <ion-button style="margin-top: -1px;" (click)="loadReports()" expand="block" fill="solid" shape="round">
+            Buscar
+            <ion-icon slot="end" name="search"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-md="6" size-lg="6">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12" size-md="4" size-lg="4">
+                <ion-card class="card_reports_stats">
+                  <img src="../../../../assets/images/subtotal.svg" alt="">
+                  <ion-card-header>
+                    <ion-card-title>Subtotal</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="value_subtotal">$ {{ DocInvoiceSubTotal | number : formatDecimal }}</span>
+                    <br>
+                    <span class="status">A la fecha</span>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col size="12" size-md="4" size-lg="4">
+                <ion-card class="card_reports_stats">
+                  <img src="../../../../assets/images/descuento.svg" alt="">
+                  <ion-card-header>
+                    <ion-card-title>Descuento</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="value_descuento">$ {{DocDiscount | number : formatDecimal}}</span>
+                    <br>
+                    <span class="status">A la fecha</span>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col size="12" size-md="4" size-lg="4">
+                <ion-card class="card_reports_stats">
+                  <img src="../../../../assets/images/impuesto.svg" alt="">
+                  <ion-card-header>
+                    <ion-card-title>Impuesto</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="value_impuesto">$ {{DocTaxAmount | number : formatDecimal}}</span>
+                    <br>
+                    <span class="status">A la fecha</span>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                <ion-card style="min-height: 200px; max-height: 200px;">
+                  <ion-card-header>
+                    <ion-card-title>Medios de pago</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <canvas id="doughnutChart" style="position: relative; height:120px; width:120px"></canvas>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col size="12" size-md="6" size-lg="6">
+                <ion-card class="card_reports_resumen">
+                  <ion-card-header>
+                    <ion-card-title>T. medios de pago</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="value_total">$ {{totalPayment | number : formatDecimal}}</span>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col size="12" size-md="6" size-lg="6">
+                <ion-card class="card_reports_resumen">
+                  <ion-card-header>
+                    <ion-card-title>T. resumen de ventas</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="value_total">$ {{DocInvoiceAmount | number : formatDecimal}}</span>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+
+          </ion-grid>
+        </ion-col>
+        <ion-col size="12" size-md="6" size-lg="6">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12">
+                <ion-card style="min-height: 620px; max-height: 620px;">
+                  <ion-card-header>
+                    <ion-card-title>Detalle productos vendidos</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <dx-data-grid id="listItems" [dataSource]="listItems" [showBorders]="true"
+                      [rowAlternationEnabled]="true" [allowColumnReordering]="true" [columnMinWidth]="50"
+                      [columnAutoWidth]="true" columnResizingMode="nextColumn" [allowColumnResizing]="true">
+                      <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                      <dxo-selection mode="single"></dxo-selection>
+                      <dxo-search-panel [visible]="true" width="249"></dxo-search-panel>
+                      <dxo-paging [pageSize]="14"></dxo-paging>
+                      <dxo-pager [showNavigationButtons]="true" [showInfo]="true"></dxo-pager>
+                      <dxi-column dataField="ItemDescription" caption="Nombre"></dxi-column>
+                      <dxi-column dataField="Quantity" caption="Cantidad"></dxi-column>
+                    </dx-data-grid>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-card>

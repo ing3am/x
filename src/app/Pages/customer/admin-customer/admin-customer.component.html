@@ -1,0 +1,120 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<app-toolbar-general tittle="{{mainTitle}}" [exit]="true" [loading]="false"></app-toolbar-general>
+
+<ion-content>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="card_reports">
+          <h1>Clientes</h1>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12">
+                <div class="table-responsive" style="position: relative  !important; top: -50px !important;">
+
+                  <ion-button class="rounded-button" style="position: relative; left: 266px; top: 39px;z-index: 1;"
+                    title="Crear Cliente" (click)="actions('')" shape="round">
+                    <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+                  </ion-button>
+
+                  <dx-data-grid [dataSource]="customers" [showBorders]="true" [rowAlternationEnabled]="true"
+                    [allowColumnReordering]="true" [columnMinWidth]="50" [columnAutoWidth]="true">
+                    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                    <dxo-selection mode="single"></dxo-selection>
+                    <dxo-search-panel [visible]="true" width="249"></dxo-search-panel>
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10]" [showNavigationButtons]="true"
+                      [showInfo]="true"></dxo-pager>
+
+                    <dxi-column dataField="TerceroNum" name="TerceroNum" caption="ID" alignment="left"
+                      sortOrder="desc"></dxi-column>
+                    <dxi-column dataField="SearchWord" caption="Nombre" alignment="left"
+                      cellTemplate="nameCell"></dxi-column>
+                    <dxi-column dataField="Address" caption="Dirección" alignment="left"></dxi-column>
+                    <dxi-column name="TerceroNumActions" caption="Acciones" alignment="center" cellTemplate="actions"
+                      [allowExporting]="false"></dxi-column>
+
+
+                    <div *dxTemplate="let cellData of 'nameCell'">
+                      <td *ngIf="cellData.value == ''">{{cellData.data.FirstName}} {{cellData.data.AnotherName}}
+                        {{cellData.data.FirstLastName}} {{cellData.data.SecondLastName}}</td>
+                      <td *ngIf="cellData.value != ''">{{cellData.value}}</td>
+                    </div>
+
+                    <div *dxTemplate="let cellData of 'actions'">
+                      <ion-button style="display: contents;" title="Editar"
+                        (click)="actions(cellData.data.TerceroNum,'edit')" fill="clear" shape="round">
+                        <ion-icon name="create-outline" size="small" color="primary" aria-label="Editar"
+                          class="custom-icon" style="cursor: pointer;"></ion-icon>
+                      </ion-button>
+                    </div>
+                  </dx-data-grid>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <div class="well">
+    <ion-card mode="ios">
+
+      <ion-card-header color="primary" style="padding: 0px 0px 0px 8px; display: flex; align-items: center;">
+        <ion-card-title style="flex: 1;">Clientes</ion-card-title>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button title="Crear Cliente" routerLink="crearcliente">
+              <ion-icon name="add-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-card-header>
+
+      <ion-card-content style="margin-top: 15px;">
+
+        <dx-data-grid [dataSource]="customers" [showBorders]="true" keyExpr="TerceroNum" [rowAlternationEnabled]="true"
+          [allowColumnReordering]="true" [columnMinWidth]="50" [columnAutoWidth]="true">
+          <dxo-load-panel [enabled]="true"></dxo-load-panel>
+          <dxo-selection mode="single"></dxo-selection>
+          <dxo-search-panel [visible]="true" width="249"></dxo-search-panel>
+          <dxo-paging [pageSize]="10"></dxo-paging>
+          <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20]" [showNavigationButtons]="true"
+            [showInfo]="true"></dxo-pager>
+          <dxi-column dataField="TerceroNum" name="TerceroNum" caption="ID" alignment="center"
+            sortOrder="desc"></dxi-column>
+          <dxi-column dataField="SearchWord" caption="Nombre" alignment="left" cellTemplate="nameCell"></dxi-column>
+          <dxi-column dataField="Address" caption="Dirección" alignment="left"></dxi-column>
+          <dxi-column name="TerceroNumActions" caption="" alignment="center" cellTemplate="actions"
+            [allowExporting]="false"></dxi-column>
+
+
+          <div *dxTemplate="let cellData of 'nameCell'">
+            <td *ngIf="cellData.value == ''">{{cellData.data.FirstName}} {{cellData.data.AnotherName}}
+              {{cellData.data.FirstLastName}} {{cellData.data.SecondLastName}}</td>
+            <td *ngIf="cellData.value != ''">{{cellData.value}}</td>
+          </div>
+
+          <div *dxTemplate="let cellData of 'actions'">
+              <ion-button title="Editar" (click)="actions(cellData,'edit')" class="admin-button">
+
+  <ion-icon name="create" size="small" color="primary" aria-label="Editar" class="custom-icon"
+    (click)="actions(cellData,'edit')" title="Editar" style="font-size: 18px;cursor: pointer;"></ion-icon>
+
+
+ </ion-button> 
+
+  </div>
+
+  </dx-data-grid>
+
+  </ion-card-content>
+
+  </ion-card>
+  </div> -->
+</ion-content>

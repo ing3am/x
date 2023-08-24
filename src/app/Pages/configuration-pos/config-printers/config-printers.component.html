@@ -1,0 +1,49 @@
+<ion-grid mode="ios" [formGroup]="printForm" fixed>
+  <ion-row>
+    <ion-col size="12" size-md="3" size-lg="3">
+      <ion-item lines="none">
+        <ion-label class="bold-label">Imprimir logo?</ion-label>
+        <ion-checkbox class="input_customer" style="border: 0px !important; width: 60px;" formControlName="PrintLogo"
+          [class.is-invalid]="l.PrintLogo.errors"></ion-checkbox>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12" size-md="3" size-lg="3">
+      <ion-item lines="none">
+        <ion-label class="bold-label">Imprimir texto 1?</ion-label>
+        <ion-checkbox class="input_customer" style="border: 0px !important; width: 60px;" formControlName="PrintText1"
+          [class.is-invalid]="l.PrintText1.errors"></ion-checkbox>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-md="9" size-lg="9">
+      <ion-item lines="none">
+        <ion-label class="bold-label">Texto complementario 1</ion-label>
+        <ion-textarea class="input_customer" formControlName="Text1" style="height: 80px !important;"></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12" size-md="3" size-lg="3">
+      <ion-item lines="none">
+        <ion-label class="bold-label">Imprimir texto 2?</ion-label>
+        <ion-checkbox class="input_customer" style="border: 0px !important; width: 60px;" formControlName="PrintText2"
+          [class.is-invalid]="l.PrintText2.errors"></ion-checkbox>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-md="9" size-lg="9">
+      <ion-item lines="none">
+        <ion-label class="bold-label">Texto complementario 2</ion-label>
+        <ion-textarea class="input_customer" formControlName="Text2" style="height: 80px !important;"></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12" size-md="3" size-lg="3">
+      <ion-item lines="none">
+        <p>Descarga la aplicación desde <a href="./../../../../../assets/APK/app-debug.apk" target="_blank"
+            style="font-weight: bold; cursor: pointer;">aquí</a></p>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

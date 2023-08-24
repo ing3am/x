@@ -1,0 +1,93 @@
+
+<!--MENU MOBILE -->
+<ion-split-pane mode="ios" contentId="id">
+  <!-- Menú para dispositivos móviles -->
+    <ion-menu *ngIf="isMobile" contentId="id" menuId="first" side="start" type="overlay">
+      <ion-content [scrollY]="false" style="padding: 0px;">
+        <div class="menu-header-bg">
+          <div class="header-content">
+            <img alt="Inicio" src="../../../assets/images/amazonas_logo_1.png" style="cursor: pointer;"
+              routerLink="/app/home" />
+          </div>
+        </div>
+        <div style="padding-top: 50px;">
+          <ion-list style="padding-top: 8px;" line="none" *ngFor="let p of appPages; let i = index">
+          <ion-item  [id]="p.url" lines="none" (click)=" activeLink(p)"
+            [ngClass]="{ 'active': i === selectedIndex }">
+            <ion-icon style="margin-left: 10px !important;" slot="start" [name]="p.icon" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+            <ion-label>{{ p.title }}</ion-label>
+          </ion-item>
+        </ion-list>
+        </div>
+        <ion-button class="fixed-button" (click)="onClick()">
+          Salir
+        </ion-button>
+      </ion-content>
+    </ion-menu>
+
+  <!-- Menú para escritorio -->
+    <ion-menu *ngIf="!isMobile" side="start" contentId="id" type="overlay" menuId="first">
+      <ion-content>
+        <ion-list class="list_menu" id="inbox-list">
+          <img class="header-image" alt="Inicio" src="../../../assets/images/amazonas_logo_1.png" style="cursor: pointer;"
+            routerLink="/app/home" />
+          <br>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item [id]="p.url" lines="none" [ngClass]="{active: p.active}" class="item_apps" (click)=" activeLink(p)">
+              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+            <br>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+  <ion-router-outlet id="id"></ion-router-outlet>
+</ion-split-pane>
+
+<!--
+<ion-split-pane  mode="ios" contentId="main-content">
+  <ion-menu *ngIf="isMobileDevice()" contentId="main-content" menuId="first" side="start" type="overlay">
+  <ion-content>
+    <div class="menu-header-bg">
+      <img class="header-image" alt="Inicio" src="../../../assets/images/amazonas_logo_1.png" style="cursor: pointer;"
+          routerLink="/app/home" />
+    </div>
+    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+      <ion-item [id]="p.url" lines="none" [ngClass]="{active: p.active}" class="item_apps" (click)=" activeLink(p)">
+        <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+        <ion-label>{{ p.title }}</ion-label>
+      </ion-item>
+      <br>
+    </ion-menu-toggle>
+  </ion-content>
+</ion-menu>
+<ng-container *ngIf="!isMobileDevice()">
+
+</ng-container>
+<ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-split-pane>
+
+
+
+<ion-split-pane *ngIf="!isMobileDevice()" mode="ios" contentId="main-content">
+  <ion-menu  side="start" contentId="main-content" type="overlay" menuId="first">
+    <ion-content>
+      <ion-list class="list_menu" id="inbox-list">
+        <img class="header-image" alt="Inicio" src="../../../assets/images/amazonas_logo_1.png" style="cursor: pointer;"
+          routerLink="/app/home" />
+        <br>
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <ion-item [id]="p.url" lines="none" [ngClass]="{active: p.active}" class="item_apps" (click)=" activeLink(p)">
+            <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+            <ion-label>{{ p.title }}</ion-label>
+          </ion-item>
+          <br>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-split-pane>
+-->

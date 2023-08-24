@@ -1,0 +1,43 @@
+
+  // MENU Bar
+.menu-header-bg{
+    height: 200px;
+    width: 350px;
+    background: var(--ion-color-background);
+    //background: linear-gradient(90deg, #c5d6ff 0%, #a2bbff 100%);
+    box-shadow: 0px 1px 10px rgba(53, 53, 53, 0.5);
+    transform: rotate(-15deg);
+    border-radius: 10px 10px 10px 50px;
+    margin-left: -18px;
+    margin-top: -50px;
+    margin-bottom: 60px;
+}
+.header-content{
+    position: absolute;
+    padding-top: 25px;
+    top: 50%; /* Centrar verticalmente */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -50%) rotate(15deg); /* Alinear al centro y aplicar rotación */
+    display: flex;
+    align-items: center;
+
+    img{
+        width: auto;
+        height: auto;
+    }
+}
+
+ion-item.active {
+    background-color: var(--ion-color-background);
+}
+
+.fixed-button {
+    position: fixed;
+    bottom: 40px; /* Ajusta esta distancia según tus necesidades */
+    right: 0px; /* Ajusta esta distancia según tus necesidades */
+    z-index: 1000; /* Asegura que el botón esté en la parte superior de otros elementos */
+    --border-radius: 8px 0px 0px 8px;
+    --background: #272727;
+    --padding-start: 20px;
+    --padding-end: 20px;
+  }

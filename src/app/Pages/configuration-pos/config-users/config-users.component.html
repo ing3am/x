@@ -1,0 +1,15 @@
+<ion-grid mode="ios" fixed>
+  <ion-row>
+    <ion-col size="12">
+      <ion-item lines="none">
+        <ion-label position="stacked" class="bold-label">Usuarios Asociados a la Tienda</ion-label>
+        <ion-select class="input_customer" style="margin-top: 6px;" [(ngModel)]="selectedUsers" interface="action-sheet"
+          multiple="true" (ngModelChange)="emmitUsers()" searchable="true" placeholder="Buscar usuarios">
+          <ion-select-option *ngFor="let item of users" [value]="item">
+            {{ item.Name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

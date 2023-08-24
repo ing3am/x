@@ -1,0 +1,48 @@
+<ion-grid mode="ios" fixed [formGroup]="TranDocTypeForm">
+  <ion-row>
+    <ion-col size="12" size-md="3" size-lg="3">
+      <ion-item lines="none">
+        <ion-label position="stacked" class="bold-label">Factura de venta</ion-label>
+        <ion-select class="input_customer" interface="action-sheet" formControlName="SalesDocumentType"
+          class="form-control" [ngClass]="{ 'is-invalid': g.SalesDocumentType.errors }">
+          <ion-select-option [value]="salestdt.TranDocTypeID"
+            *ngFor="let salestdt of trandoctype">{{salestdt.TranDocTypeDesc}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-md="3" size-lg="3">
+      <ion-item lines="none">
+        <ion-label position="stacked" class="bold-label">Recibo de caja</ion-label>
+        <ion-select class="input_customer" interface="action-sheet" formControlName="CashDocumentType"
+          class="form-control" [ngClass]="{ 'is-invalid': g.CashDocumentType.errors }">
+          <ion-select-option [value]="tdt.TranDocTypeID"
+            *ngFor="let tdt of trandoctype2">{{tdt.TranDocTypeDesc}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-md="3" size-lg="3">
+      <ion-item lines="none">
+        <ion-label position="stacked" class="bold-label">Devolución</ion-label>
+        <ion-select class="input_customer" interface="action-sheet" formControlName="CreditMemoDocumentType"
+          class="form-control" [ngClass]="{ 'is-invalid': g.CreditMemoDocumentType.errors }">
+          <ion-select-option [value]="tdt.TranDocTypeID"
+            *ngFor="let tdt of trandoctype3">{{tdt.TranDocTypeDesc}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-md="3" size-lg="3">
+      <ion-item lines="none">
+        <ion-label position="stacked" class="bold-label">Factura Electrónica</ion-label>
+        <ion-select class="input_customer" interface="action-sheet" formControlName="SalesDocumentTypeFE"
+          class="form-control" [ngClass]="{ 'is-invalid': g.SalesDocumentTypeFE.errors }">
+          <ion-select-option [value]="salestdt.TranDocTypeID"
+            *ngFor="let salestdt of trandoctype4">{{salestdt.TranDocTypeDesc}}</ion-select-option>
+          <ion-select-option value="newTranDocType" class="trandoctype">Nuevo</ion-select-option>
+        </ion-select>
+        <div *ngIf="g.SalesDocumentTypeFE.errors" class="invalid-feedback">
+          <div *ngIf="g.SalesDocumentTypeFE.errors.required">Debes seleccionar un tipo de documento.</div>
+        </div>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

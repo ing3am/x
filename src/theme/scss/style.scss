@@ -1,0 +1,154 @@
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
+// input,
+// ion-card-title,
+// span,
+// p,
+// td,
+// h1 {
+//     font-family: 'Poppins', sans-serif !important;
+//     font-weight: 700 !important;
+// }
+
+@import "login";
+@import 'spinner';
+@import 'store';
+@import 'menu';
+@import 'customer';
+@import 'reports';
+@import 'angularmaterial';
+@import 'devextreme';
+
+.custom-item {
+    padding: 0px 0px 0px 0px !important;
+
+    >ion-label {
+        font-size: 14px !important;
+        margin: 0px !important;
+    }
+}
+
+.custom-item.ion-activatable:hover {
+    cursor: pointer;
+    background-color: #286EAB29;
+}
+
+.custom-toast {
+    --background: #333;
+    --color: #fff;
+    --border-radius: 10px;
+    --padding: 16px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+ion-button[shape=circle] {
+    --border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 8px;
+
+    >ion-icon {
+        font-size: 20px;
+    }
+}
+
+
+.fill-button {
+    flex-grow: 1;
+    margin: 0 5px;
+}
+
+.button-container {
+    display: flex;
+}
+
+.my-custom-modal-tranType {
+    --max-height: 50vh;
+    --width: 60vh;
+    backdrop-filter: blur(7px);
+}
+
+.dx-datagrid-headers {
+    background-color: var(--ion-color-primary) !important;
+
+    color: white !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+.modal_invoice {
+    //transform: translateX(-100%) !important;
+    animation: modalSlideIn 0.1s ease-out !important;
+    margin-left: -10px;
+    backdrop-filter: blur(7px);
+    justify-content: left !important;
+    --height: 100% !important;
+
+    &.modal-wrapper {
+        max-width: 400px;
+    }
+}
+
+
+
+
+ion-content.greybg {
+    --background: #e8ebf0 !important;
+}
+
+.bold-label {
+    font-weight: bold;
+}
+
+.admin-button {
+    padding: 0px;
+    margin: 0%;
+    font-size: 8px;
+    /*  background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important; */
+}
+
+.admin-button ion-icon {
+    font-size: 18px;
+}
+
+.modal-title-tran {
+    font-size: 14px;
+}
+
+@media (max-width: 500px) {
+    .modal-title {
+        font-size: 13px;
+    }
+
+    .modal-title-tran {
+        font-size: 13px;
+    }
+}
+
+.full-page-label {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-page-label ion-label {
+    color: gray;
+    /* Optional text color */
+    font-size: 40px;
+    /* Optional font size */
+}
+
+ion-toolbar {
+    background-color: var(--ion-color-mycolor) !important;
+}
+
+ion-textarea {
+    --background: #e8ebf0 !important
+}

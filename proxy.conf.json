@@ -1,0 +1,67 @@
+{
+    "/ledger/*": {
+        "target": "http://192.168.12.37:44353",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/arservice/*": {
+      "target": "http://192.168.12.37:44353",
+      "secure": false,
+      "logLevel": "debug"
+  },
+    "/posservice/*": {
+        "target": "http://192.168.12.37:44353",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/general/*": {
+        "target": "http://192.168.12.37:44353",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/Token/*": {
+        "target": "http://192.168.12.37:59731",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/signalr/*": {
+        "target": "http://192.168.12.37:59731",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/apservice/*": {
+        "target": "http://192.168.12.37:44353",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/calculatedservice/*": {
+        "target": "http://192.168.12.37:44353",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/inventoryservice/*": {
+        "target": "http://192.168.12.37:44353",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/cts/*":{ 
+        "target":"https://192.168.12.37:44353",
+        "secure":false,
+        "logLevel":"debug"
+    },
+    "/payrollservice/*":{
+      "target":"http://192.168.12.37:44353",
+      "secure":false,
+      "logLevel":"debug"
+    },
+    "/notificationservice/*":{
+        "target":"http://192.168.12.37:44353",
+        "secure":false,
+        "logLevel":"debug"
+    },
+    "/paymentservice/*":{
+        "target":"http://192.168.12.37:44353",
+        "secure":false,
+        "logLevel":"debug"
+    }
+}

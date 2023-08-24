@@ -1,0 +1,182 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<ion-header class="header_top">
+  <ion-toolbar>
+    <ion-buttons slot="start" style="margin-left: 15px; margin-top: 13px;">
+      <ion-button (click)="showPrint($event)">
+        <ion-icon slot="icon-only" name="print-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="invoiceComment()">
+        <ion-icon slot="icon-only" name="chatbox-ellipses-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="openModalSelectTranDocType()">
+        <ion-icon slot="icon-only" name="reader-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="clicSaveInvoice()">
+        <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="clearInvoiceForm()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="modal-title-invoice">{{name}}</ion-title>
+  </ion-toolbar>
+  <div class="modal-header">
+    <button (click)="closeInvoiceViewModal();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="addInvoiceForm">
+    <ion-list class="well dark" slot="padding:30px">
+      <br>
+      <ion-item lines="none">
+        <div class="input-group">
+          <ion-label style="width: 140px; margin-top: 10px;">Fecha:</ion-label>
+          <dx-date-box formControlName="InvoiceDate" displayFormat="yyyy-MM-dd"></dx-date-box>
+        </div>
+      </ion-item>
+      <ion-item lines="none" button (click)="SelectCustomer()">
+        <ion-label style="width: 140px;">Cliente:</ion-label>
+        <ion-input readOnly="true" type="text" formControlName="CustomerName"
+          placeholder="Seleccione un cliente"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div id="invoice__content" formArrayName="invoicedtls">
+      <ion-list [ngStyle]="{'margin-top': i===0 ? '26px' : '0px' }" *ngFor="let dtl of
+      addInvoiceForm.controls.invoicedtls['controls'];
+      let i=index" [formGroupName]="i" class="invoice-item animated fadeInLeft">
+        <ion-item-sliding>
+          <ion-item lines="none">
+
+
+            <!-- <div *ngFor="let dtl of
+                                addInvoiceForm.controls.invoicedtls['controls'];
+                                let i=index" [formGroupName]="i" class="invoice-item animated fadeInLeft"> -->
+            <div class="invoice-item__container">
+              <div class="invoice-item__data">
+                <p class="invoice-item__name">{{this.g[i].get('ItemDescription').value}}</p>
+
+              </div>
+
+              <div class="invoice-item__quantity">
+                <div class="invoice-item__quantity-change"><button (click)="downqty($event,i)"><svg width="18"
+                      height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="3.35596" y="7.71498" width="11.6237" height="2.81795" fill="#B3B3B3"></rect>
+                    </svg></button></div>
+                <p>{{this.g[i].get('Quantity').value}}</p>
+                <div class="invoice-item__quantity-change"><button (click)="upqty($event,i)"><svg width="13" height="13"
+                      viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M0.97998 7.83561V5.05378H5.34919V0.68457H8.15253V5.05378H12.5196V7.83561H8.15253V12.2242H5.34919V7.83561H0.97998Z"
+                        fill="#B3B3B3"></path>
+                    </svg></button></div>
+              </div>
+              <div class="invoice-item__totals">
+                <p *ngIf="priceAfterTax">${{this.g[i].get('DocLineSubtotalTax').value | number:formatDecimal}}</p>
+                <p *ngIf="!priceAfterTax">${{this.g[i].get('DocLineSubtotal').value | number:formatDecimal}}</p>
+              </div>
+              <!-- <button (click)="deleteInvoiceLine(i)" class="invoice-item__trash"><svg
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                  <g>
+                    <path fill="#DADADA"
+                      d="M10.681,14.273v23.981c0,3.117,2.527,5.645,5.644,5.645h15.352c3.116,0,5.644-2.527,5.644-5.645V14.273 H10.681z M18.242,36.812c0,0.721-0.588,1.307-1.309,1.307c-0.72,0-1.307-0.586-1.307-1.307V19.507c0-0.722,0.587-1.306,1.307-1.306 c0.721,0,1.309,0.584,1.309,1.306V36.812z M25.307,36.812c0,0.721-0.584,1.307-1.307,1.307s-1.309-0.586-1.309-1.307V19.507 c0-0.722,0.586-1.306,1.309-1.306s1.307,0.584,1.307,1.306V36.812z M32.373,36.812c0,0.721-0.587,1.307-1.307,1.307 c-0.723,0-1.312-0.586-1.312-1.307V19.507c0-0.722,0.589-1.306,1.312-1.306c0.72,0,1.307,0.584,1.307,1.306V36.812z">
+                    </path>
+                    <path fill="#DADADA"
+                      d="M33.354,7.799h-2.465c0.002-0.069,0.021-0.134,0.021-0.203c0-2.327-1.896-4.222-4.222-4.222h-5.375 c-2.326,0-4.222,1.896-4.222,4.222c0,0.069,0.017,0.134,0.021,0.203h-2.467C11.527,7.799,9,9.655,9,11.945v0.149h30v-0.149 C39,9.655,36.473,7.799,33.354,7.799z M18.811,7.596c0-1.38,1.122-2.504,2.502-2.504h5.375c1.38,0,2.504,1.124,2.504,2.504 c0,0.069-0.016,0.135-0.021,0.203H18.832C18.824,7.731,18.811,7.665,18.811,7.596z">
+                    </path>
+                  </g>
+                </svg></button> -->
+            </div>
+            <div>
+              <span class="notranslate">
+                <mat-icon (click)="lineDetail(i)" id="IconlineDetail" matTooltip="Detalle de la línea"
+                  [matBadge]="CommentInvoice" matBadgeSize="large" matBadgeOverlap="true" matBadgeSize="small"
+                  matBadgeHidden="hideCommentInvoice" matBadgeColor="success">fingerprint</mat-icon>
+              </span>
+            </div>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="danger" (click)="deleteInvoiceLine(i)">
+              <ion-icon slot="end" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+      <!-- </div> -->
+    </div>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <div id="invoice">
+    <div id="invoice__summary">
+      <table style="width: 100%;">
+        <tr>
+          <td>
+            Subtotal
+          </td>
+          <td style="text-align: right;">
+            <div>${{addInvoiceForm.controls.DocInvoiceSubTotal.value | number:formatDecimal}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Descuento
+          </td>
+          <td style="text-align: right;">
+            <div>${{addInvoiceForm.controls.DocDiscount.value | number:formatDecimal}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Retenciones
+          </td>
+          <td style="text-align: right;">
+            <div>${{addInvoiceForm.controls.DocWithHoldingAmount.value | number:formatDecimal}}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Impuestos
+          </td>
+          <td style="text-align: right;">
+            <div>${{addInvoiceForm.controls.DocTaxAmount.value | number:formatDecimal}}</div>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <div id="invoice__pay">
+        <button (click)="saveInvoice();">
+          <p>Facturar</p>
+          <p>${{addInvoiceForm.controls.DocInvoiceAmount.value | number:formatDecimal}}</p>
+        </button>
+      </div>
+      <div class="invoice__total" style="padding: 0px 5px 0px 9px;">
+        <table style="width: 100%;">
+          <tr>
+            <td>
+              Productos:
+            </td>
+            <td>
+              {{totalProduct}}
+            </td>
+            <td>
+              Cantidades:
+            </td>
+            <td style="text-align: right;">
+              {{totalQty}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</ion-footer>

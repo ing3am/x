@@ -1,0 +1,95 @@
+<div *ngIf="loading" class="spinner-wrapper">
+    <app-loading></app-loading>
+</div>
+
+<app-toolbar-general tittle="Configuración POS" [exit]="true" [loading]="false"></app-toolbar-general>
+
+<ion-content>
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="12">
+                <ion-card class="card_reports">
+                    <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <div class="tab_containers">
+                                    <mat-icon class="material-symbols-outlined tab-icon">store</mat-icon>
+                                    <span>Editar Tienda</span>
+                                </div>
+                            </ng-template>
+                            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                                <app-config-store (StoreFormToSend)="handleFormChangedStore($event)"></app-config-store>
+                            </ion-grid>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <div class="tab_containers">
+                                    <mat-icon class="material-symbols-outlined tab-icon">groups</mat-icon>
+                                    <span>Usuarios</span>
+                                </div>
+                            </ng-template>
+                            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                                <app-config-users (UsersToSend)="GetUsers($event)"></app-config-users>
+                            </ion-grid>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <div class="tab_containers">
+                                    <mat-icon class="material-symbols-outlined tab-icon">description</mat-icon>
+                                    <span>Tipos de documento</span>
+                                </div>
+                            </ng-template>
+                            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                                <app-config-tran-types (TranDocTypeFormToSend)="handleFormChangedTranTypes($event)"
+                                    (editDocTranType)="handleEditOrAdd($event, 'trantype')"></app-config-tran-types>
+                            </ion-grid>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <div class="tab_containers">
+                                    <mat-icon class="material-symbols-outlined tab-icon">fact_check</mat-icon>
+                                    <span>Inventario</span>
+                                </div>
+                            </ng-template>
+                            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                                <app-config-invetaries (InventoryFormToSend)="handleFormChangedInventary($event)"
+                                    (editInventory)="handleEditOrAdd($event, 'inventary')"></app-config-invetaries>
+                            </ion-grid>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <div class="tab_containers">
+                                    <mat-icon class="material-symbols-outlined tab-icon">account_balance</mat-icon>
+                                    <span>Cuentas bancarias</span>
+                                </div>
+                            </ng-template>
+                            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                                <app-config-bank-accounts (BanksFormToSend)="handleFormChangedBanks($event)"
+                                    (editBanks)="handleEditOrAdd($event, 'bank')"></app-config-bank-accounts>
+                            </ion-grid>
+                        </mat-tab>
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                <div class="tab_containers">
+                                    <mat-icon class="material-symbols-outlined tab-icon">print</mat-icon>
+                                    <span>Impresión</span>
+                                </div>
+                            </ng-template>
+                            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                                <app-config-printers (printFormFormToSend)="handleFormChangedPrinters($event)"
+                                    (editPrinter)="handleEditOrAdd($event, 'printer')"></app-config-printers>
+                            </ion-grid>
+                        </mat-tab>
+                    </mat-tab-group>
+                </ion-card>
+
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button mode="ios" style="width: 100%; height: 50px; font-size: 25px;" color="primary"
+                    (click)="onSubmit()">Guardar</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

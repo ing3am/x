@@ -1,0 +1,88 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<app-toolbar-general tittle="{{mainTitle}}" [exit]="true" [loading]="false"></app-toolbar-general>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="card_reports">
+          <form [formGroup]="formReport">
+            <h1>Facturas</h1>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6" size-md="3" size-lg="3">
+                  <dx-date-box displayFormat="yyyy-MM-dd" formControlName="startdate"
+                    placeholder="Fecha Inicio"></dx-date-box>
+                </ion-col>
+                <ion-col size="6" size-md="3" size-lg="3">
+                  <dx-date-box displayFormat="yyyy-MM-dd" formControlName="enddate"
+                    placeholder="Fecha Fin"></dx-date-box>
+                </ion-col>
+                <ion-col size="12" size-md="2" size-lg="2">
+                  <ion-button style="margin-top: -1px;" (click)="search()" expand="block" fill="solid" shape="round">
+                    Buscar
+                    <ion-icon slot="end" name="search"></ion-icon>
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <br><br>
+                  <div class="table-responsive" style="position: relative  !important; top: -50px !important;">
+                    <dx-data-grid id="chartTrackerContainer" [dataSource]="invoices" [showBorders]="true"
+                      keyExpr="InvoiceNum" [rowAlternationEnabled]="true" [allowColumnReordering]="true"
+                      [columnMinWidth]="50" [columnAutoWidth]="true" columnResizingMode="nextColumn"
+                      [allowColumnResizing]="true">
+                      <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                      <dxo-selection mode="single"></dxo-selection>
+                      <dxo-search-panel [visible]="true" width="249"></dxo-search-panel>
+                      <dxo-paging [pageSize]="10"></dxo-paging>
+                      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10]" [showNavigationButtons]="true"
+                        [showInfo]="true"></dxo-pager>
+                      <dxi-column dataField="InvoiceNum" name="Factura" caption="ID" alignment="left"
+                        sortOrder="desc"></dxi-column>
+                      <dxi-column dataField="LegalNumber" caption="N° Legal" alignment="left"></dxi-column>
+                      <dxi-column dataField="EstadoFactura" caption="Estado" alignment="left"></dxi-column>
+                      <dxi-column dataField="CustomerName" caption="Cliente" alignment="left"></dxi-column>
+                      <dxi-column dataField="InvoiceDate" caption="Fecha" cellTemplate="dateCell"
+                        alignment="center"></dxi-column>
+                      <dxi-column caption="V.A Impuesto" cellTemplate="amountCell2" alignment="right"></dxi-column>
+                      <dxi-column dataField="InvoiceAmount" caption="V.D Impuesto" cellTemplate="amountCell"
+                        alignment="right"></dxi-column>
+                      <dxi-column dataField="InvoiceBal" caption="Saldo" cellTemplate="amountCell"
+                        alignment="right"></dxi-column>
+                      <dxi-column name="TerceroNumActions" caption="Acciones" alignment="center" cellTemplate="actions"
+                        [allowExporting]="false"></dxi-column>
+
+                      <div *dxTemplate="let cellData of 'dateCell'">
+                        {{cellData.value | date: 'yyyy-MM-dd'}}
+                      </div>
+
+                      <div *dxTemplate="let cellData of 'amountCell'">
+                        {{cellData.value | number }}
+                      </div>
+
+                      <div *dxTemplate="let cellData of 'amountCell2'">
+                        {{cellData.data.InvoiceSubTotal - cellData.data.Discount | number }}
+                      </div>
+
+                      <div *dxTemplate="let cellData of 'actions'">
+                        <ion-button style="display: contents;" title="Acciones" (click)="actions(cellData.data)"
+                          fill="clear">
+                          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                        </ion-button>
+                      </div>
+                    </dx-data-grid>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

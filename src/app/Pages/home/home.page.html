@@ -1,0 +1,9 @@
+<div *ngIf="loading" class="spinner-wrapper">
+    <app-loading></app-loading>
+</div>
+
+<app-toolbar-general tittle="{{mainTitle}}" [exit]="true" [loading]="false"></app-toolbar-general>
+
+<ion-content mode="ios">
+    <app-invoice></app-invoice>
+</ion-content>

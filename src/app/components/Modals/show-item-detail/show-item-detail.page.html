@@ -1,0 +1,251 @@
+<ion-header class="header_top_details">
+    <ion-toolbar>
+        <ion-title class="modal-title-full">
+            <h4>
+            <legend class="title-details" contentEditable="false" id="my-legend">{{addInvoiceForm.controls.invoicedtls['controls'][0]['controls']['ItemDescription'].value}}</legend>
+            </h4>
+        </ion-title>
+    </ion-toolbar>
+    
+    <div class="modal-header">
+        <button (click)="closeInvoiceViewModal();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+    </div>
+</ion-header> 
+    
+<ion-content>
+    <form>
+        <div >
+            <div >
+                <div >
+                    <form [formGroup]="addInvoiceForm">                
+                        <mat-tab-group>
+                            <mat-tab label="Detalle" style="padding: 1%;">
+                                <div class="row" formArrayName="invoicedtls" style="width: 100%;">
+                                    <div class="InvoiceDtl" *ngFor="let dtl of
+                                            addInvoiceForm.controls.invoicedtls['controls'];
+                                            let i=index" [formGroupName]="i" style="width: 90%;margin-left: 10%;padding: 5px; margin-bottom: 1%;">
+                                        <div class="row" style="padding-top: 10px;">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Precio</label>
+                                                    <input id="DocUnitPriceDtl" (keyup)="onChangeQtyLine(i)" (focusout)="onChangeQtyLine(i)" currencyMask type="tel" [options]=optionsMask class="form-control" placeholder="Precio Unitario" formControlName="DocUnitPrice" autocomplete="off" [ngClass]="{'is-invalid':h[i]['controls']['DocUnitPrice'].errors}">
+                                                    <div *ngIf="h[i]['controls']['DocUnitPrice'].errors" class="invalid-feedback">
+                                                        <div *ngIf="h[i]['controls']['DocUnitPrice'].errors.required">Debes ingresar el precio unitario.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Cantidad</label>
+                                                    <input id="QuantityDtl" (keyup)="onChangeQtyLine(i)" (focusout)="onChangeQtyLine(i)" currencyMask type="tel" [options]=optionsMask class="form-control" placeholder="Cantidad" formControlName="Quantity" autocomplete="off" [ngClass]="{'is-invalid':h[i]['controls']['Quantity'].errors}">
+                                                    <div *ngIf="h[i]['controls']['Quantity'].errors" class="invalid-feedback">
+                                                        <div *ngIf="h[i]['controls']['Quantity'].errors.required">Debes ingresar el precio unitario.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Descuento</label>
+                                                    <input id="DocDiscountDtl" (keyup)="onChangeQtyLine(i)" (focusout)="onChangeQtyLine(i)" currencyMask type="tel" [options]=optionsMask class="form-control" placeholder="Cantidad" formControlName="DocDiscount" autocomplete="off" [ngClass]="{'is-invalid':h[i]['controls']['DocDiscount'].errors}">
+                                                    <div *ngIf="h[i]['controls']['DocDiscount'].errors" class="invalid-feedback">
+                                                        <div *ngIf="h[i]['controls']['DocDiscount'].errors.required">Debes ingresar el precio unitario.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Comentario</label>
+                                                    <textarea id="LineCommentsDtl" style="width: 100%; height: 160px;" class="form-control" formControlName="LineComments"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <table class="form-totales" style="margin-top: 24px;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="notranslate" style="width: 15%;
+                                                            background-color: aliceblue;">Sutobtal:</td>
+                                                            <td class="notranslate" style="width: 5%;
+                                                            background-color: aliceblue;">$</td>
+                                                            <td class="notranslate" style="width: 61px;
+                                                            text-align: right; background-color:
+                                                            aliceblue;">
+                                                                {{addInvoiceForm.controls.DocInvoiceSubTotal.value | number : formatDecimal }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="notranslate" style="width: 15%;">Descuento:</td>
+                                                            <td class="notranslate" style="width: 5%;">$</td>
+                                                            <td class="notranslate" style="width: auto;
+                                                            text-align: right;">
+                                                                {{addInvoiceForm.controls.DocDiscount.value | number : formatDecimal }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+
+                                                            <td class="notranslate" style="width: 15%;
+                                                            background-color: aliceblue;">Retenciones:</td>
+                                                            <td class="notranslate" style="width: 5%;
+                                                            background-color: aliceblue;">$</td>
+                                                            <td class="notranslate" style="width: auto;
+                                                            text-align: right; background-color:
+                                                            aliceblue;">
+                                                                {{addInvoiceForm.controls.DocWithHoldingAmount.value | number : formatDecimal }}
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+
+                                                            <td class="notranslate" style="width: 15%;">Impuestos:</td>
+                                                            <td class="notranslate" style="width: 5%;">$</td>
+                                                            <td class="notranslate" style="width: auto;
+                                                            text-align: right;">
+                                                                {{addInvoiceForm.controls.DocTaxAmount.value | number : formatDecimal }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="total notranslate" style="width: 15%;
+                                                            background-color: aliceblue;">Total:</td>
+                                                            <td class="total notranslate" style="width: 5%;
+                                                            background-color: aliceblue;">$</td>
+                                                            <td class="total notranslate" style="width:
+                                                            auto; text-align: right; background-color:
+                                                            aliceblue;">
+                                                                {{addInvoiceForm.controls.DocInvoiceAmount.value | number : formatDecimal}}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Impuestos">
+                                <div class="container" style="padding: -1px;min-height:308px;">
+                                    <ion-button (click)="openSearchTaxAtLinePopUp()" shape="round" style="padding-top: 10px;" >Agregar</ion-button>
+                                    <div class="row" formArrayName="invoicetaxes">
+                                        <ion-grid>
+                                            <ion-row class="header-row" style="font-weight: bold; text-align: center;">
+                                                <ion-col class="header-cell" size="1">Linea</ion-col>
+                                                    <ion-col class="header-cell" size="1">Cod.</ion-col>
+                                                    <ion-col class="header-cell" size="1">Tasa</ion-col>
+                                                    <ion-col class="header-cell" size="1.5">%</ion-col>
+                                                    <ion-col class="header-cell" size="2.5">Base Imponible</ion-col>
+                                                    <ion-col class="header-cell" size="2">Monto</ion-col>
+                                                    <ion-col class="header-cell" size="1.5">Manual</ion-col>
+                                                    <ion-col class="header-cell" size="1.5">Accion</ion-col>
+                                            </ion-row>
+                                            <ion-row class="data-row" *ngFor="let dtl of addInvoiceForm.controls.invoicetaxes['controls'];
+                                                let i=index" [formGroupName]="i">
+
+                                                <ion-col *ngIf="dtl['controls']['Visible'].value" class="data-cell only-read-details" size="1">
+                                                    <ion-input readonly placeholder="Linea" formControlName="Line" autocomplete="off"></ion-input>
+                                                </ion-col>
+
+                                                <ion-col *ngIf="dtl['controls']['Visible'].value" class="data-cell only-read-details" size="1">
+                                                    <ion-input readonly placeholder="Código" formControlName="TaxID" autocomplete="off"></ion-input>
+                                                </ion-col>
+
+                                                <ion-col *ngIf="dtl['controls']['Visible'].value" class="data-cell only-read-details" size="1">
+                                                    <ion-input readonly formControlName="RateCode" placeholder="Tasa"></ion-input>
+                                                </ion-col>
+
+                                                <ion-col *ngIf="dtl['controls']['Visible'].value" class="data-cell only-edit-details" size="1.5">
+                                                    <ion-input type="number" formControlName="Percent" placeholder="%" (ngModelChange)="focusoutTaxLine(i,dtl['controls'])" (focusout)="focusoutTaxLine(i,dtl['controls'])" min=0></ion-input>
+                                                </ion-col>
+
+                                                <ion-col size="2.5">
+                                                    <td *ngIf="dtl['controls']['Visible'].value">
+                                                        <input currencyMask type="tel" [options]=optionsMask class="form-control inputDtl" formControlName="DocTaxableAmount" (focusout)="focusoutTaxLine(i,dtl['controls'])" min=0 placeholder="Base">
+                                                    </td>
+                                                </ion-col>
+
+                                                <ion-col size="2">
+                                                    <td *ngIf="dtl['controls']['Visible'].value" style="align-items: center;">
+                                                        <input readonly currencyMask type="tel" [options]=optionsMask class="form-control inputDtl" formControlName="DocTaxAmount" min=0 placeholder="Monto">
+                                                    </td>
+                                                </ion-col>
+
+                                                <ion-col size="1.5">
+                                                    <td *ngIf="dtl['controls']['Visible'].value" style="display: flex; justify-content: center;">
+                                                        <div class="form-group
+                                                        checkboxLinea">
+                                                            <div class="checkbox
+                                                            checkbox-primary
+                                                            checkbox-fill d-inline">
+                                                                <input type="checkbox" id="switch-a-{{i}}" formControlName="Manual">
+                                                                <label for="switch-a-{{i}}" class="cr"></label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </ion-col>
+                                                <ion-col size="1">
+                                                    <td *ngIf="dtl['controls']['Visible'].value" style="display: flex; justify-content: center;">
+                                                        <div class="input-group
+                                                            botonesLinea">
+                                                            <ion-icon (click)="deleteTaxLine(i,dtl['controls'])" name="trash-bin" 
+                                                            style="width:20px;height: 20px; padding: 5px 5px; color: rgb(66, 66, 66);"
+                                                            ></ion-icon>
+                                                        </div>
+                                                    </td>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                                <mat-tab label="Ubicación" style="padding: 1%;" *ngIf="showWareHouses"> 
+                                <div class="container" formArrayName="invoicedtls" style="padding: -1px;min-height:338px;">
+                                    <div class="InvoiceDtl" *ngFor="let dtl of
+                                            addInvoiceForm.controls.invoicedtls['controls'];
+                                            let i=index" [formGroupName]="i" style="width: 90%;margin-left: 5%;padding: 10px;">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Almacén</label>
+                                                    <select (change)="getWareHouseBin($event.target.value)" type="text" formControlName="Warehousecode" class="form-control" >
+                                                        <option [value]="wh.Warehousecode" *ngFor="let wh of warehouses">{{wh.WarehouseDescription}}</option>
+                                                    </select>
+                                                        <div *ngIf="h[i]['controls']['Warehousecode'].errors" class="invalid-feedback">
+                                                        <div *ngIf="h[i]['controls']['Warehousecode'].errors.required">Debes seleccionar un almacén.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Ubicación</label>
+                                                <select type="text" formControlName="Bincode" class="form-control" >
+                                                    <option [value]="wh.Bincode" *ngFor="let wh of warehousesbin">{{wh.Description}}</option>
+                                                </select>
+                                                    <div *ngIf="h[i]['controls']['Bincode'].errors" class="invalid-feedback">
+                                                    <div *ngIf="h[i]['controls']['Bincode'].errors.required">Debes seleccionar una ubicación.</div>
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                        <ion-grid>
+                            <ion-row class="ion-justify-content-end">
+                                <ion-button (click)="closeInvoiceViewModal();" shape="round" color="medium">
+                                    <ion-icon slot="start" name="stop"></ion-icon>
+                                    cancelar
+                                </ion-button>
+                                <ion-button (click)="saveModal()" [disabled]="addInvoiceForm.invalid" shape="round" >
+                                    <ion-icon slot="start" name="save"></ion-icon>
+                                    Guardar
+                                </ion-button>
+                            </ion-row>
+                        </ion-grid>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form> 
+</ion-content>

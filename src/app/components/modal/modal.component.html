@@ -1,0 +1,92 @@
+<ion-header class="header_top">
+  <ion-toolbar>
+    <ion-title class="modal-title">{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="modalid === 'selectCompany'">
+    <ion-list lines="none">
+      <ion-item *ngFor="let item of items" (click)="selectItem(item)" class="custom-item ion-activatable">
+        <ion-avatar slot="start">
+          <ion-img src="https://app.amazonaserp.com/assets/images/amazonas_logo_letra_1.png"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.TradeName }}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  <ng-container *ngIf="modalid === 'selectStore'">
+    <ion-list lines="none">
+      <ion-item *ngFor="let item of items" (click)="selectItem(item)" class="custom-item ion-activatable">
+        <ion-avatar slot="start">
+          <ion-img src="https://app.amazonaserp.com/assets/images/amazonas_logo_letra_1.png"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.Name }}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  <ng-container *ngIf="modalid === 'selectCashR'">
+    <ion-list lines="none">
+      <ion-item *ngFor="let item of items" (click)="selectItem(item)" class="custom-item ion-activatable">
+        <ion-avatar slot="start">
+          <ion-img src="https://app.amazonaserp.com/assets/images/amazonas_logo_letra_1.png"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.Description }}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  <ng-container *ngIf="modalid === 'selectCustomer'">
+    <ion-searchbar (ionInput)="filterItems($event.target.value)"></ion-searchbar>
+    <ion-list lines="none">
+      <ion-item *ngFor="let item of filteredItems" (click)="selectItem(item)" class="custom-item ion-activatable">
+        <ion-avatar slot="start">
+          <ng-container *ngIf="item.TypeID === 13; else otherImage">
+            <ion-img src="assets/images/user/avatar-1.jpg"></ion-img>
+          </ng-container>
+          <ng-template #otherImage>
+            <ion-img src="assets/images/user/avatar-2.jpg"></ion-img>
+          </ng-template>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.SearchWord }}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-container *ngIf="modalid === 'selectTypeID'">
+    <ion-list lines="none">
+      <ion-item *ngFor="let item of filteredItems" (click)="selectItem(item)" class="custom-item ion-activatable">
+        <ion-label>
+          <h2>{{ item.Description }}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-container *ngIf="modalid === 'storeUsers'">
+    <ion-searchbar (ionInput)="filterItems($event.target.value)"></ion-searchbar>
+    <ion-list lines="none" multiple="true">
+      <ion-item *ngFor="let item of filteredItems" class="custom-item ion-activatable">
+        <ion-avatar slot="start">
+          <ng-container *ngIf="item.TypeID === 13; else otherImage">
+            <ion-img src="assets/images/user/avatar-1.jpg"></ion-img>
+          </ng-container>
+          <ng-template #otherImage>
+            <ion-img src="assets/images/user/avatar-2.jpg"></ion-img>
+          </ng-template>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.Name }}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+</ion-content>

@@ -1,0 +1,77 @@
+<ion-header class="header_top_details">
+    <ion-toolbar>
+        <ion-title class="modal-title-full"> Nuevo Impuesto </ion-title>
+    </ion-toolbar>
+    
+    <div class="modal-header">
+        <button (click)="closeInvoiceViewModal();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+    </div>
+</ion-header> 
+
+<ion-content>
+    <ion-grid style="padding: 8px 22px 8px 22px;">
+        <ion-row>
+            <ion-col size="12">
+                <label for='TaxID'>Selecciona un Impuesto(*)</label>
+                <select (change)="OnChangeTax($event)" class="form-control" [(ngModel)]="TaxID">
+                    <option [value]="tax.TaxID" *ngFor="let tax of Taxes">{{tax.TaxDescription}}</option>
+                </select>
+            </ion-col>
+            <ion-col *ngIf="taxdetailvisible" size="12">
+                <label for='RateCode'>Selecciona una Tasa(*)</label>
+                <select (ngModelChange)="OnChangeRate($event)" class="form-control" [(ngModel)]="RateCode">
+                    <option [value]="dtl.RateCode" *ngFor="let dtl of TaxDtls">{{dtl.Description}}</option>
+                </select>
+            </ion-col>
+            <ion-col *ngIf="taxdetailvisible" size="12">
+                <ion-label for='Percent'>Porcentaje</ion-label>
+                <input readonly type="number" [(ngModel)]="Percent" class="form-control" />
+            </ion-col>
+            <ion-col size="12">
+               <ion-row>
+                    <ion-col size="4"></ion-col>
+                    <ion-col size="4">
+                        <ion-button color="primary" (click)="AcceptSelection($event)">Agregar Impuesto</ion-button>
+                    </ion-col>
+                    <ion-col size="4"></ion-col>
+                </ion-row> 
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+
+
+<!--
+  <div class="col-xl-12 col-md-12">
+        <div class="table-responsive">
+            <div class="col-md-12">
+                <div class="form-group">
+                    
+                </div>
+            </div>
+
+            <div *ngIf="taxdetailvisible" class="col-md-12">
+                <div class="form-group">
+                    
+                </div>
+            </div>
+
+            <div *ngIf="taxdetailvisible" class="col-md-12">
+                <div class="form-group">
+                    <label for='Percent'>Porcentaje</label>
+                    <input readonly type="number" [(ngModel)]="Percent" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button class="btn btn-primary" (click)="AcceptSelection($event)">Agregar Impuesto</button>
+                </div>
+            </div>
+        </div>
+</div>
+</ion-content>
+-->

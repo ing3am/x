@@ -1,0 +1,47 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<ion-content>
+  <div class="div_container">
+  </div>
+  <ion-card class="card_login">
+    <ion-grid class="grid-full" fixed>
+      <ion-row>
+        <ion-col size="12" size-md="6" size-lg="6">
+          <div class="div_containerImage_principal">
+
+          </div>
+          <div class="divider"></div>
+        </ion-col>
+        <ion-col size="12" size-md="6" size-lg="6">
+          <div class="div_centerImageAmazonas">
+            <img class="img_amazonas" src="../../../assets/images/amazonas_logo_1.png" alt="">
+          </div>
+          <br><br>
+          <div class="container_formLogin">
+            <form [formGroup]="loginForm">
+              <ion-label class="label_login">Usuario:</ion-label>
+              <ion-item lines="none">
+                <ion-input id="email" class="rounded-input" formControlName="email" type="text"></ion-input>
+              </ion-item>
+              <br>
+              <ion-label class="label_login">Contraseña:</ion-label>
+              <ion-item lines="none">
+                <ion-input id="password" class=" rounded-input" formControlName="password" type="password"></ion-input>
+              </ion-item>
+              <br>
+              <br>
+              <br>
+              <br>
+              <section>
+                <ion-button expand="block" (click)="logins();" shape="round">INICIAR SESIÓN</ion-button>
+              </section>
+            </form>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+</ion-content>

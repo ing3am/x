@@ -1,0 +1,48 @@
+<ion-header class="header_top">
+  <ion-toolbar>
+    <ion-title class="modal-title-full">Cambiar a Documento Electronico</ion-title>
+  </ion-toolbar>
+  <div class="modal-header">
+    <button (click)="dismiss();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row> 
+      <ion-col size="12">
+        <form [formGroup]="Form" class="inicioTour">
+
+          <div class="row justify-content-center">
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label for="TranDocTypeID" style="font-size: 14px;color: black;">
+                          Tipo de Documento
+                      </label>
+                      <div class="input-group">
+                          <select id="TranDocTypeID" type="text" formControlName="TranDocTypeID" class="form-control" [ngClass]="{ 'is-invalid': f.TranDocTypeID.errors }">
+                              <option [value]="item.TranDocTypeID" *ngFor="let item of listTranDocType">
+                                  {{item.TranDocTypeDesc}}
+                              </option>
+                          </select>
+                          <div *ngIf="f.TranDocTypeID.errors" class="invalid-feedback">
+                              <div *ngIf="f.TranDocTypeID.errors.required">Debes seleccionar un tipo de documento.</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+          <div class="row justify-content-center">
+              <ion-button color="primary" (click)="handSuccessfullSave()" [disabled]="Form.invalid">Guardar</ion-button>
+          </div>
+  
+      </form>
+      </ion-col>
+    </ion-row>
+
+</ion-grid>
+
+</ion-content>

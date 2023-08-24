@@ -1,0 +1,143 @@
+<ion-grid mode="ios" [formGroup]="StoreForm" fixed>
+    <ion-row>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label position="stacked" class="bold-label">ID</ion-label>
+                <ion-input class="input_customer" type="text" formControlName="StoreCode"
+                    [class.is-invalid]="f.StoreCode.errors"></ion-input>
+                <div *ngIf="f.StoreCode.errors" class="invalid-feedback">
+                    <div *ngIf="f.StoreCode.errors.required">Debes ingresar el código de tu tienda.</div>
+                </div>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label position="stacked" class="bold-label">Nombre de la tienda</ion-label>
+                <ion-input class="input_customer" type="text" formControlName="Name"
+                    [class.is-invalid]="f.Name.errors"></ion-input>
+                <div *ngIf="f.Name.errors" class="invalid-feedback">
+                    <div *ngIf="f.Name.errors.required">Debes ingresar el nombre de tu tienda.</div>
+                    <div *ngIf="f.Name.errors.maxlength">
+                        Superaste la cantidad de caracteres permitidos para el nombre de tu tienda (100).
+                    </div>
+                </div>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-lg="4"></ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label position="stacked" class="bold-label">Pais</ion-label>
+                <ion-select class="input_customer" interface="action-sheet" formControlName="CountryID"
+                    [class.is-invalid]="f.CountryID.errors">
+                    <ion-select-option [value]="country.CountryID" *ngFor="let country of countries">
+                        {{ country.CountryDescription }}
+                    </ion-select-option>
+                </ion-select>
+                <div *ngIf="f.CountryID.errors" class="invalid-feedback">
+                    <div *ngIf="f.CountryID.errors.required">Debes seleccionar un pais.</div>
+                </div>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label position="stacked" class="bold-label">Departamento</ion-label>
+                <ion-select class="input_customer" interface="action-sheet" formControlName="StateID"
+                    [class.is-invalid]="f.StateID.errors">
+                    <ion-select-option [value]="state.StateID" *ngFor="let state of states">
+                        {{ state.StateDescription }}
+                    </ion-select-option>
+                </ion-select>
+                <div *ngIf="f.StateID.errors" class="invalid-feedback">
+                    <div *ngIf="f.StateID.errors.required">Debes seleccionar un departamento.</div>
+                </div>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label position="stacked" class="bold-label">Ciudad</ion-label>
+                <ion-select class="input_customer" interface="action-sheet" formControlName="CityID"
+                    [class.is-invalid]="f.CityID.errors">
+                    <ion-select-option [value]="city.CityID" *ngFor="let city of cities">
+                        {{ city.CityDescription }}
+                    </ion-select-option>
+                </ion-select>
+                <div *ngIf="f.CityID.errors" class="invalid-feedback">
+                    <div *ngIf="f.CityID.errors.required">Debes seleccionar una ciudad.</div>
+                </div>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label position="stacked" class="bold-label">Dirección</ion-label>
+                <ion-input class="input_customer" type="text" formControlName="Address"
+                    [class.is-invalid]="f.Address.errors"></ion-input>
+                <div *ngIf="f.Address.errors" class="invalid-feedback">
+                    <div *ngIf="f.Address.errors.required">Debes ingresar una dirección.</div>
+                </div>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label position="stacked" class="bold-label">Teléfono</ion-label>
+                <ion-input class="input_customer" type="text" formControlName="PhoneNum"
+                    [class.is-invalid]="f.PhoneNum.errors"></ion-input>
+                <div *ngIf="f.PhoneNum.errors" class="invalid-feedback">
+                    <div *ngIf="f.PhoneNum.errors.required">Debes ingresar un teléfono.</div>
+                    <div *ngIf="f.PhoneNum.errors.maxlength">
+                        El teléfono no puede exceder (50) caracteres.
+                    </div>
+                </div>
+            </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label position="stacked" class="bold-label">Correo Electrónico</ion-label>
+                <ion-input class="input_customer" type="email" formControlName="EMailAddress"
+                    [class.is-invalid]="f.EMailAddress.errors"
+                    (keyup)="f.EMailAddress.setValue(f.EMailAddress.value.toLowerCase())"></ion-input>
+                <div *ngIf="f.EMailAddress.errors" class="invalid-feedback">
+                    <div *ngIf="f.EMailAddress.errors.required">Debes ingresar un correo Electrónico.</div>
+                    <div *ngIf="f.EMailAddress.errors.email || f.EMailAddress.errors.pattern">
+                        Debes ingresar un correo Electrónico válido.
+                    </div>
+                </div>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size="12" size-md="4" size-lg="4">
+            <ion-item lines="none">
+                <ion-label class="bold-label">Mostrar Imágenes de productos</ion-label>
+                <ion-checkbox class="input_customer" style="border: 0px !important; width: 60px;"
+                    formControlName="ShowImgItem" [class.is-invalid]="f.ShowImgItem.errors"></ion-checkbox>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+
+<ion-card-content>
+
+
+    <ion-list [formGroup]="StoreForm">
+        <ion-row>
+
+            <ion-col size-md="6" size-sm="12">
+
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size-md="6" size-sm="12">
+
+            </ion-col>
+            <ion-col size-md="6" size-sm="12">
+
+            </ion-col>
+        </ion-row>
+
+    </ion-list>
+</ion-card-content>

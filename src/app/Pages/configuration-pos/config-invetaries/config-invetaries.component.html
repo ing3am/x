@@ -1,0 +1,42 @@
+<ion-grid mode="ios" fixed [formGroup]="InventoryForm">
+  <ion-row>
+    <ion-col size="12" size-md="4" size-lg="4">
+      <ion-item lines="none">
+        <ion-label position="stacked" class="bold-label">Almacén</ion-label>
+        <ion-select class="input_customer" interface="action-sheet" (ionChange)="selectedWhseCode($event)"
+          formControlName="Warehousecode" [class.is-invalid]="h.Warehousecode.errors">
+          <ion-select-option [value]="wh.Warehousecode" *ngFor="let wh of warehouses">{{wh.WarehouseDescription}}
+          </ion-select-option>
+        </ion-select>
+        <div *ngIf="h.Warehousecode.errors" class="invalid-feedback">
+          <div *ngIf="h.Warehousecode.errors.required">Debes seleccionar un almacén.</div>
+        </div>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12" size-md="4" size-lg="4">
+      <ion-item lines="none">
+        <ion-label position="stacked" class="bold-label">Ubicación</ion-label>
+        <ion-select class="input_customer" interface="action-sheet" formControlName="Warehsebincode"
+          [class.is-invalid]="h.Warehsebincode.errors">
+          <ion-select-option [value]="wh.Bincode" *ngFor="let wh of warehousesbin">{{wh.Description}}
+          </ion-select-option>
+        </ion-select>
+        <div *ngIf="h.Warehsebincode.errors" class="invalid-feedback">
+          <div *ngIf="h.Warehsebincode.errors.required">Debes seleccionar una ubicación.</div>
+        </div>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12" size-md="4" size-lg="4">
+      <ion-item lines="none">
+        <ion-label class="bold-label">Mostrar items sin inventario</ion-label>
+        <ion-checkbox formControlName="ShowItemsWithoutInventory"
+          [class.is-invalid]="h.ShowItemsWithoutInventory.errors"></ion-checkbox>
+        <div *ngIf="h.ShowItemsWithoutInventory.errors" class="invalid-feedback">
+          <div *ngIf="h.ShowItemsWithoutInventory.errors.required">Debes seleccionar una ubicación.</div>
+        </div>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

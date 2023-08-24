@@ -1,0 +1,104 @@
+.card-summary {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+
+.card_reports {
+    box-shadow: none;
+    padding: 30px;
+
+    @media screen and (max-width : 500px) {
+        padding: 0px !important;
+    }
+}
+
+.card_reports_stats {
+    padding: 10px;
+    text-align: center;
+    height: 210px;
+
+    ion-card-title {
+        font-size: 18px !important;
+    }
+
+    ion-card-content {
+        padding: 0px !important;
+    }
+
+    .value_subtotal {
+        font-weight: bold;
+        font-size: 17px !important;
+        color: #29cf29;
+    }
+
+    .value_descuento {
+        font-weight: bold;
+        font-size: 17px;
+        color: #e3681f;
+    }
+
+    .value_impuesto {
+        font-weight: bold;
+        font-size: 17px;
+        color: #18c4eb;
+    }
+
+    .status {
+        color: black;
+        font-weight: bold;
+        font-size: 14px;
+    }
+}
+
+.card_reports_resumen {
+    height: 150px;
+
+    .value_total {
+        position: absolute;
+        top: 30px;
+        font-weight: bold;
+        font-size: 30px;
+        color: #1b2d7d;
+    }
+}
+
+.value_payment_total {
+    position: absolute;
+    top: 30px;
+    font-weight: bold;
+    font-size: 30px;
+    color: #1b2d7d;
+}
+
+.nameMethodText {
+    border-top: 0px !important;
+    width: 60%;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    padding: 2px !important;
+    left: 10px;
+}
+
+.paymentMethodAmount {
+    border-top: 0px !important;
+    width: 40%;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 2px !important;
+}
+
+@media screen and (max-width : 500px) {
+    ion-grid {
+        min-width: 367px !important;
+        margin-left: -2px;
+    }
+
+    .card_reports_stats {
+        height: 250px;
+
+        >img {
+            width: 30%;
+        }
+
+
+    }
+}

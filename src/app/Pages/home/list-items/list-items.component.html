@@ -1,0 +1,103 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<ion-content [formGroup]="addInvoiceForm" class="greybg">
+  <div style="margin-top: 13px;">
+    <ion-grid class="grid_list_items">
+      <ion-row>
+        <ion-col size="12" size-md="4" size-lg="4">
+
+          <input style="margin-top:10px;" id="txtsearchItems" formControlName="itemsearch" type="text"
+            class="form-control" (keyup)="appyFilterItem($event,$event.target.value)"
+            (click)="appyFilterItem($event,$event.target.value)" placeholder="Buscar producto">
+        </ion-col>
+        <ion-col size="12" size-md="4" size-lg="4">
+          <ion-grid style="margin-top: -6px;">
+            <ion-row>
+              <ion-col size="2" size-md="2" size-lg="2">
+                <ion-button class="rounded-button" shape="circle" (click)="createItem()">
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="2" size-md="2" size-lg="2">
+                <ion-button class="rounded-button" shape="circle" fill="outline" (click)="clearInvoiceForm()">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="2" size-md="2" size-lg="2" class="col-with-badge">
+                <ion-button class="rounded-button" shape="circle" fill="outline" (click)="orderSaved()">
+                  <ion-icon slot="icon-only" name="hand-right"></ion-icon>
+                </ion-button>
+                <ion-badge *ngIf="SavedInvoiceAlert !== 0" color="danger" mode="ios" class="badge-overlay">{{ SavedInvoiceAlert }}</ion-badge>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <br>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let item of dataSourceItem.filteredData; let i=index" (click)="selectedItem(item, i)">
+          <div id="card" [title]="item.ItemDescription" class="container"
+            [ngClass]="[item.QtyInvoice > 0 ? 'item_invoice active': 'item_invoice']">
+
+            <!-- MOSTRAR IMAGENES-->
+            <div class="ribbon">
+              <span *ngIf="item.IsInventoryable && item.Quantity" class="ribbon4">Con Stock!</span>
+              <span *ngIf="item.IsInventoryable && item.Quantity ===0" class="ribbon5">Sin Inventario!</span>
+            </div>
+
+            <div *ngIf="showImgItem" title="{{item.ItemDescription}}">
+
+              <div class="item__image_zone">
+                <ion-img [src]="item.Picture  ? item.Picture  : 'assets/images/_no-image-box.png'"
+                  class="item__image"></ion-img>
+                <p *ngIf="item.Quantity > 0" class="item__inventory">{{item.Quantity | number}}</p>
+              </div>
+
+              <ion-label>
+                <p class="item__name">{{item.ItemDescription}}</p>
+                <br>
+                <p class="item__price item_price2">${{item.SalePrice | number}}</p>
+                <p class="item__price">${{item.SalePriceTax | number}}</p>
+                <div *ngIf="item.QtyInvoice > 0" class="item__quantity">{{item.QtyInvoice }}</div>
+              </ion-label>
+
+            </div>
+
+            <!-- NO MOSTRAR IMAGENES-->
+            <div *ngIf="!showImgItem" title="{{item.ItemDescription}}">
+
+              <div class="item__image_zone" style="height: 2rem;">
+                <p *ngIf="item.Quantity > 0" class="item__inventory">{{item.Quantity | number}}</p>
+              </div>
+
+              <ion-label>
+                <p class="item__name">{{item.ItemDescription}}</p>
+                <br>
+                <p class="item__price item_price2">${{item.SalePrice | number}}</p>
+                <p class="item__price">${{item.SalePriceTax | number}}</p>
+                <div *ngIf="item.QtyInvoice > 0" class="item__quantity">{{item.QtyInvoice }}</div>
+              </ion-label>
+
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCarInvoice()">
+      <ion-icon name="receipt-outline">
+      </ion-icon>
+      <ion-badge *ngIf="totalQty>0" style="background-color: white;
+    border-radius: 30px;
+    color: black;">{{totalQty}}</ion-badge>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,260 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<ion-header class="header_top">
+  <ion-toolbar>
+    <ion-title class="modal-title-full">{{tittle}}</ion-title>
+  </ion-toolbar>
+
+  <div class="modal-header">
+    <button (click)="closeInvoiceViewModal();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+</ion-header>
+
+<ion-content mode="ios">
+  <ion-grid fixed>
+    <form [formGroup]="addTerceroForm">
+      <ion-row>
+        <ion-col size="12">
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <div class="tab_containers">
+                  <mat-icon class="material-symbols-outlined tab-icon">person</mat-icon>
+                  <span>Información</span>
+                </div>
+              </ng-template>
+              <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                <ion-row>
+                  <ion-col size="12" size-md="6" size-lg="6">
+                    <span class="title_card_information">Información Princial</span>
+                    <div class="container_infomation">
+                      <br>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Tipo de identificación:</ion-label>
+                        <ion-select class="input_customer" interface="action-sheet" formControlName="TypeID"
+                          placeholder="Seleccione tipo de identificacion" [class.is-invalid]="f.TypeID.errors">
+                          <ion-select-option title="item.Description" [value]="item.ID "
+                            *ngFor="let item of typeId">{{item.Description}}</ion-select-option>
+                        </ion-select>
+                        <div *ngIf=" f.TypeID.errors " class="invalid-feedback ">
+                          <div *ngIf="f.TypeID.errors.required ">Debes seleccionar un tipo de
+                            identificación.
+                          </div>
+                          <div *ngIf="f.TypeID.errors.min ">Debes seleccionar un tipo de identificación.
+                          </div>
+                        </div>
+                      </ion-item>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Número de identificación</ion-label>
+                        <ion-input class="input_customer" type="text" (focusout)="calcular();"
+                          formControlName="TerceroNum" placeholder="Ingresar numero de identificacion"
+                          [class.is-invalid]="f.TerceroNum.errors" pattern="[a-zA-Z0-9]*"></ion-input>
+                        <div *ngIf="f.TerceroNum.errors" class="invalid-feedback">
+                          <div *ngIf="f.TerceroNum.errors.required ">Campo obligatorio
+                          </div>
+                          <div *ngIf="f.TerceroNum.errors.maxlength">El número de identificación no puede
+                            superar
+                            los 20 caracteres.</div>
+                        </div>
+                      </ion-item>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Dígito V</ion-label>
+                        <ion-input class="input_customer" readonly formControlName="CheckDigit"></ion-input>
+                      </ion-item>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Responsables Fiscales <a (click)="help()"
+                            style="cursor:
+                            pointer;"> <ion-icon name="help-circle-outline"></ion-icon> </a></ion-label>
+                        <ion-select class="input_customer" interface="action-sheet"
+                          formControlName="TaxResponsabilityID" searchable="true"
+                          placeholder="Seleccione una responsabilidad fiscal.">
+                          <ion-select-option *ngFor="let item of taxResponsability" [value]="item.value">
+                            {{ item.label }}
+                          </ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </div>
+
+                  </ion-col>
+                  <ion-col size="12" size-md="6" size-lg="6">
+                    <span class="title_card_information">Datos Principales</span>
+                    <div class="container_infomation">
+                      <br>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Primer Nombre:</ion-label>
+                        <ion-input class="input_customer" type="text" formControlName="FirstName"
+                          placeholder="Ingrese su nombre" [class.is-invalid]="f.FirstName.errors"></ion-input>
+                        <div *ngIf="f.FirstName.errors" class="invalid-feedback">
+                          <div *ngIf="f.FirstName.errors.required">Campo obligatorio</div>
+                        </div>
+                      </ion-item>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Segundo Nombre:</ion-label>
+                        <ion-input class="input_customer" type="text" formControlName="AnotherName"
+                          placeholder="Ingrese su segundo nombre"></ion-input>
+                      </ion-item>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Primer Apellido</ion-label>
+                        <ion-input class="input_customer" type="text" formControlName="FirstLastName"
+                          placeholder="Ingrese su apellido" [class.is-invalid]="f.FirstLastName.errors"></ion-input>
+                        <div *ngIf="f.FirstLastName.errors" class="invalid-feedback">
+                          <div *ngIf="f.FirstLastName.errors.required">Campo obligatorio</div>
+                        </div>
+                      </ion-item>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Segundo Apellido</ion-label>
+                        <ion-input class="input_customer" type="text" formControlName="SecondLastName"
+                          placeholder="Ingrese su segundo apellido"></ion-input>
+                      </ion-item>
+                      <ion-item lines="none">
+                        <ion-label position="stacked" class="bold-label">Razón Social</ion-label>
+                        <ion-input class="input_customer" type="text" formControlName="FiscalName"
+                          placeholder="Ingrese su razón social" [class.is-invalid]="f.FirstName.errors"></ion-input>
+                        <div *ngIf="f.FiscalName.errors" class="invalid-feedback">
+                          <div *ngIf="f.FiscalName.errors.required">Campo obligatorio</div>
+                        </div>
+                      </ion-item>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </mat-tab>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <div class="tab_containers">
+                  <mat-icon class="material-symbols-outlined tab-icon">location_on</mat-icon>
+                  <span>Ubicación</span>
+                </div>
+              </ng-template>
+              <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                <ion-row>
+                  <ion-col size="12" size-sm="4">
+                    <ion-item lines="none">
+                      <ion-label position="stacked" class="bold-label">Pais</ion-label>
+                      <ion-select class="input_customer" interface="action-sheet" formControlName="CountryID"
+                        [class.is-invalid]="f.CountryID.errors" placeholder="Seleccione un pais">
+                        <ion-select-option [value]="country.CountryID" *ngFor="let country of countries">
+                          {{ country.CountryDescription }}
+                        </ion-select-option>
+                      </ion-select>
+                      <div *ngIf="f.CountryID.errors" class="invalid-feedback">
+                        <div *ngIf="f.CountryID.errors.required">Debes seleccionar un pais.</div>
+                      </div>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-item lines="none">
+                      <ion-label position="stacked" class="bold-label">Departamento</ion-label>
+                      <ion-select class="input_customer" interface="action-sheet" formControlName="StateID"
+                        [class.is-invalid]="f.StateID.errors">
+                        <ion-select-option [value]="state.StateID" *ngFor="let state of states">
+                          {{ state.StateDescription }}
+                        </ion-select-option>
+                      </ion-select>
+                      <div *ngIf="f.StateID.errors" class="invalid-feedback">
+                        <div *ngIf="f.StateID.errors.required">Debes seleccionar un departamento.</div>
+                      </div>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size="12" size-sm="4">
+                    <ion-item lines="none">
+                      <ion-label position="stacked" class="bold-label">Ciudad</ion-label>
+                      <ion-select class="input_customer" interface="action-sheet" formControlName="CityID"
+                        [class.is-invalid]="f.CityID.errors">
+                        <ion-select-option [value]="city.CityID" *ngFor="let city of cities">
+                          {{ city.CityDescription }}
+                        </ion-select-option>
+                      </ion-select>
+                      <div *ngIf="f.CityID.errors" class="invalid-feedback">
+                        <div *ngIf="f.CityID.errors.required">Debes seleccionar una ciudad.</div>
+                      </div>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-item lines="none">
+                      <ion-label position="stacked" class="bold-label">Dirección</ion-label>
+                      <ion-input class="input_customer" type="text" placeholder="Ingrese la dirección"
+                        formControlName="Address"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </mat-tab>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <div class="tab_containers">
+                  <mat-icon class="material-symbols-outlined tab-icon">attach_email</mat-icon>
+                  <span>Email</span>
+                </div>
+              </ng-template>
+              <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-item lines="none">
+                      <ion-label position="stacked" class="bold-label">Correo Electrónico Opcional</ion-label>
+                      <ion-input class="input_customer" type="text" formControlName="EMailAddress2"
+                        placeholder="Ingrese su correo" [class.is-invalid]="f.EMailAddress2.errors"></ion-input>
+                      <div *ngIf="f.EMailAddress2.errors" class="invalid-feedback">
+                        <div *ngIf="f.EMailAddress2.errors.email">Debes ingresar un correo Electrónico
+                          válido.</div>
+                      </div>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </mat-tab>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <div class="tab_containers">
+                  <mat-icon class="material-symbols-outlined tab-icon">
+                    bar_chart
+                  </mat-icon>
+                  <span>FE</span>
+                </div>
+              </ng-template>
+              <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+                <ion-row>
+                  <ion-col size="12" size-sm="6">
+                    <ion-item lines="none">
+                      <ion-label position="stacked" class="bold-label">Forma de pago DIAN</ion-label>
+                      <ion-select class="input_customer" interface="action-sheet" formControlName="PaymentMeansID_c">
+                        <ion-select-option [value]="item.PaymentMeanID "
+                          *ngFor="let item of paymentmeansid">{{item.PaymentMeanDescription}}</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col size="12" size-sm="6">
+                    <ion-item lines="none">
+                      <ion-label position="stacked" class="bold-label">Medio de pago DIAN</ion-label>
+                      <ion-select class="input_customer" interface="action-sheet" formControlName="PaymentMeansCode_c">
+                        <ion-select-option [value]="item.Code "
+                          *ngFor="let item of paymentmeanscode">{{item.Description}}</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </mat-tab>
+          </mat-tab-group>
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-sm="10"></ion-col>
+        <ion-col size="12" size-sm="2">
+          <ion-button class="saveCustomer" (click)="Save()" fill="full" shape="round">
+            Guardar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+
+</ion-content>

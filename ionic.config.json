@@ -1,0 +1,9 @@
+{
+  "name": "ionic_pos_amazonas",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    }
+  },
+  "type": "angular"
+}

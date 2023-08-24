@@ -1,0 +1,28 @@
+.dx-header-row {
+    background-color: rgb(114, 112, 112);
+    font-size: 16px;
+    color: white;
+    vertical-align: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.dx-datagrid-content .dx-datagrid-table .dx-row>td,
+.dx-datagrid-content .dx-datagrid-table .dx-row>tr>td {
+    height: auto !important;
+    white-space: nowrap !important;
+    padding: 5px !important;
+    vertical-align: middle !important;
+}
+
+.tab-content {
+    padding: 7px !important;
+}
+
+.dx-toolbar-after {
+    left: -30px !important;
+
+    >.dx-datagrid-search-panel {
+        width: 249px !important;
+    }
+}

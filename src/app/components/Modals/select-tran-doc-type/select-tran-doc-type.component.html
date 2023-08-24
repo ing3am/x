@@ -1,0 +1,69 @@
+<ion-header color="primary">
+  <ion-toolbar>
+    <ion-title class="modal-title-tran">{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="Form">
+    <div>
+      <ion-grid>
+        <ion-row>
+          <ion-col mode="ios" size="12">
+            <ion-item>
+              <ion-label position="floating" class="bold-label">Tipo de Documento</ion-label>
+              <ion-select formControlName="TranDocTypeID" [class.is-invalid]="f.TranDocTypeID.errors">
+                <ion-select-option [value]="item.TranDocTypeID" *ngFor="let item of listTranDocType">
+                  {{ item.TranDocTypeDesc }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+  </form>
+</ion-content>
+
+<ion-footer mode="ios">
+  <ion-grid>
+    <ion-row>
+      <ion-col mode="ios">
+        <div class="button-container">
+          <ion-button expand="block" class="fill-button" (click)="closeModal()">Continuar</ion-button>
+          <ion-button expand="block" class="fill-button" (click)="dismiss()">Cancelar</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+
+<!-- <ion-card mode="ios">
+  <ion-card-header color="primary" style="padding: 6px;">
+    <ion-card-title style="font-size: 18px;">{{title}}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <form [formGroup]="Form" style="padding: 10% 0%;">
+
+      <ion-item>
+        <ion-label class="bold-label">Tipo de Documento</ion-label>
+        <ion-select formControlName="TranDocTypeID" [class.is-invalid]="f.TranDocTypeID.errors">
+            <ion-select-option [value]="item.TranDocTypeID" *ngFor="let item of listTranDocType">
+              {{ item.TranDocTypeDesc }}
+            </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <br>
+
+      <div class="button-container">
+        <ion-button expand="block" class="fill-button" (click)="closeModal()">Continuar</ion-button>
+        <ion-button expand="block" class="fill-button" (click)="dismiss()">Cancelar</ion-button>
+      </div>
+      
+    </form>
+    
+  </ion-card-content>
+</ion-card> -->

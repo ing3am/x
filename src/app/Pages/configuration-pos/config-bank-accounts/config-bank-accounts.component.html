@@ -1,0 +1,32 @@
+<ion-grid mode="ios" fixed [formGroup]="BanksForm">
+  <div formArrayName="banksdtls">
+    <ion-row>
+      <ion-col size="6">
+        <ion-item lines="none">
+          <ion-label class="bold-label">Método</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item lines="none">
+          <ion-label class="bold-label">Método</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let dtl of BanksForm.controls.banksdtls['controls']; let i=index" [formGroupName]="i">
+      <ion-col size="6">
+        <ion-input class="input_customer" type="text" placeholder="Método" formControlName="PayMethodDescription"
+          readonly></ion-input>
+      </ion-col>
+      <ion-col size="6">
+        <ion-select class="input_customer" interface="action-sheet" formControlName="CashEquivalentId"
+          [class.is-invalid]="BanksForm.controls.banksdtls['controls'][i].get('CashEquivalentId').errors">
+          <ng-container *ngIf="cashequivalent | async as banks">
+            <ion-select-option [value]="bank.CashEquivalentId" *ngFor="let bank of banks">
+              {{bank.CashEquivalentDescription}}
+            </ion-select-option>
+          </ng-container>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-grid>

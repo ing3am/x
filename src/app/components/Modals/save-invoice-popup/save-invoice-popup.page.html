@@ -1,0 +1,110 @@
+<div class="header_top">
+  <ion-toolbar>
+    <ion-title class="modal-title-full">Guardar Orden</ion-title>
+  </ion-toolbar>
+  <div class="modal-header">
+    <button (click)="closeInvoiceViewModal();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+</div>
+
+<ion-content>
+  <form [formGroup]="addInvoiceForm" id="order-place-form">
+    <ion-grid *ngIf="!editSaleOrder" style="padding: 10px 10px 0px 10px;">
+      <ion-row>
+        <ion-col size="1.5" style="margin-top: 9px;">
+            <ion-label position="fixed" style="font-weight: bold;">N° Orden</ion-label>
+          </ion-col>
+          <ion-col size="10.5">
+            <ion-input
+              placeholder="  * Este campo es obligatorio." 
+              style="padding: 15px; border: 1px solid var(--ion-color-primary); border-radius: 8px;" 
+              id="order-title"
+              type="text"
+              formControlName="OrderNum"
+              clearInput>
+              <ion-icon style="color: rgba(255, 255, 255, 0);" slot="start" name="search"></ion-icon>
+            </ion-input>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="editSaleOrder" style="padding: 10px 10px 0px 10px;">
+      <ion-row>
+        <ion-col size="1.5" style="margin-top: 9px;">
+            <ion-label position="fixed" style="font-weight: bold;">N° Orden</ion-label>
+          </ion-col>
+          <ion-col size="10.5">
+            <ion-input
+              style="padding: 15px; border: 1px solid var(--ion-color-primary); border-radius: 8px;" 
+              id="order-title"
+              type="text"
+              clearInput
+              [value]="addInvoiceForm.value.OrderNum"
+              disabled>
+              <ion-icon style="color: rgba(255, 255, 255, 0);" slot="start" name="search"></ion-icon>
+            </ion-input>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid formArrayName="invoicedtls" style="padding: 0px;">
+      <ion-row class="header-row" style="font-weight: bold; text-align: center;">
+        <ion-col style="font-weight: bold; font-size: 19px;" size="12" >Detalle de orden</ion-col>
+      </ion-row>
+          <ion-row class="header-row" style="font-weight: bold; text-align: center;">
+            <ion-col class="header-cell" size="1">n°</ion-col>
+            <ion-col class="header-cell" size="6">Descripción.</ion-col>
+            <ion-col class="header-cell" size="1">cant</ion-col>
+            <ion-col class="header-cell" size="4">precio</ion-col>
+          </ion-row>
+    </ion-grid>
+    <ion-grid class="fixed-height-grid-save">
+      <ion-row style="text-align: center;" class="data-row" *ngFor="let dtl of addInvoiceForm.controls.invoicedtls['controls']; let i=index">
+              <ion-col class="data-cell" size="1" >{{dtl['controls']['Line'].value }}</ion-col>
+              <ion-col class="data-cell" size="6" style="text-align: start;" >{{dtl['controls']['ItemDescription'].value}}</ion-col>
+              <ion-col class="data-cell" size="1" >{{dtl['controls']['Quantity'].value}}</ion-col>
+              <ion-col class="data-cell" size="4" >{{dtl['controls']['DocLineSubtotal'].value | number:formatDecimal}}</ion-col>
+          </ion-row>
+    </ion-grid>
+    <ion-grid formArrayName="invoicedtls">
+      <ion-row style="margin-top: 4px;">
+        <ion-col ng-show="invoiceNote" size="7.5" style="border: 1px solid lightgray; border-radius: 10px; margin: 0px 0px 10px 10px;">
+          <b>Comentarios:</b> <br>  <i>{{addInvoiceForm.controls.Comments.value}}</i>
+        </ion-col>
+        <ion-col size="4">
+          <ion-row>
+            <ion-col style="background-color: rgb(230, 243, 255);" class="out-padding" size="6">Subtotal:</ion-col>
+            <ion-col style="background-color: rgb(230, 243, 255);" class="out-padding" size="6">{{addInvoiceForm.controls.DocInvoiceSubTotal.value | number : formatDecimal }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="out-padding" size="6">Descuento:</ion-col>
+            <ion-col class="out-padding" size="6">{{addInvoiceForm.controls.DocDiscount.value | number : formatDecimal }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="background-color: rgb(230, 243, 255);" class="out-padding" size="6">Retenciones:</ion-col>
+            <ion-col style="background-color: rgb(230, 243, 255);" class="out-padding" size="6">{{addInvoiceForm.controls.DocWithHoldingAmount.value | number : formatDecimal }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="out-padding" size="6">Impuestos:</ion-col>
+            <ion-col class="out-padding" size="6">{{addInvoiceForm.controls.DocTaxAmount.value | number : formatDecimal }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="background-color: rgb(230, 243, 255);" class="out-padding" size="6">Total:</ion-col>
+            <ion-col style="background-color: rgb(230, 243, 255);" class="out-padding" size="6">{{addInvoiceForm.controls.DocInvoiceAmount.value | number : formatDecimal }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-button 
+              expand="block" 
+              color="primary" 
+              (click)="saveModal()" 
+              [disabled]="addInvoiceForm.invalid || btnClick"
+              style="position: fixed; right: 0; bottom: 0; margin-right: 30px;">Guardar</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+

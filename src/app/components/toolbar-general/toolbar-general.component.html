@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar class="toolbar_general" color="mycolor">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons style="cursor: pointer;" slot="end">
+      <ion-icon *ngIf="exit" slot="end" name="exit" (click)="onExit()"></ion-icon>
+    </ion-buttons>
+
+    <ion-title>{{tittle}}</ion-title>
+  </ion-toolbar>
+  <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+  <div id="toldo">
+  </div>
+</ion-header>

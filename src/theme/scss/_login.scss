@@ -1,0 +1,150 @@
+.div_container {
+    background-image: url("https://img.freepik.com/free-vector/blurred-background-design_1107-224.jpg");
+    background-repeat: repeat-y;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 80%;
+}
+
+.card_login {
+
+    width: 90%;
+    display: block;
+    margin: 7% auto;
+    border-radius: 15px;
+    box-shadow: 5px 4px 12px 6px;
+    max-width: 1300px;
+    max-height: 800px;
+    min-height: 800px;
+
+    .div_containerImage_principal {
+        background-image: url('./../../assets/images/bg-images/bg2.png');
+        background-repeat: repeat-y;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+
+        @media screen and (max-width: 500px) {
+
+            position: absolute;
+            left: -6px;
+            width: 107%;
+            height: 328px;
+        }
+    }
+
+    .divider {
+        @media screen and (max-width: 500px) {
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSI0MHB4IiB2aWV3Qm94PSIwIDAgMTI4MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTMyMCAyOEMxNjAgMjggODAgNDkgMCA3MFYwaDEyODB2NzBjLTgwIDIxLTE2MCA0Mi0zMjAgNDItMzIwIDAtMzIwLTg0LTY0MC04NHoiLz48L2c+PC9zdmc+);
+            background-size: 100% 40px;
+            position: relative;
+            bottom: 0;
+            top: 293px;
+            left: -7px;
+            height: 40px;
+            width: 600px;
+            z-index: 0;
+            transform: scale(-1, -1);
+        }
+    }
+
+    >.grid-full {
+        position: absolute;
+        margin-top: -10px;
+        left: -25px;
+        width: 100%;
+        height: 820px;
+        margin-inline: inherit !important;
+
+        @media screen and (max-width: 500px) {
+            left: -7px;
+        }
+
+        >ion-row {
+            width: 100%;
+            margin-top: 0px;
+            margin-left: 0px;
+            height: 100%;
+            padding: 0px;
+            flex-wrap: wrap;
+
+            >ion-col {
+                width: 100%;
+                flex: 50%;
+                max-width: 50%;
+                padding: 0px 5px;
+                font-size: 10px;
+
+                >.img_login {
+                    margin-top: -15px;
+                    margin-left: -30px;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                >.div_centerImageAmazonas {
+                    width: 90%;
+                    display: block;
+                    margin: 0 auto;
+                    text-align: center;
+                    margin-top: 100px;
+
+                    >.img_amazonas {
+                        width: 270px;
+                    }
+                }
+
+                >.container_formLogin {
+                    margin: auto;
+                    width: 316px;
+                }
+
+            }
+        }
+    }
+}
+
+.LoginModalModalid {
+    --max-height: 400px;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+}
+
+.label_login {
+    font-size: 14px;
+    margin-left: 15px;
+
+    @media screen and (max-width: 500px) {
+        margin-left: 18px;
+    }
+}
+
+.rounded-input {
+    --border-radius: 20px !important;
+    --padding-start: 12px !important;
+    --padding-end: 12px !important;
+    border-radius: 20px !important;
+    border: 1px solid rgb(79, 78, 78) !important;
+    color: black !important;
+    width: 100%;
+    height: 100%;
+}
+
+ion-item {
+    --background: transparent;
+}
+
+
+@media screen and (max-width: 700px) {
+    .card_login {
+
+        width: 90%;
+        display: block;
+        margin: 7% auto;
+        border-radius: 15px;
+        box-shadow: 5px 4px 12px 6px;
+
+    }
+}

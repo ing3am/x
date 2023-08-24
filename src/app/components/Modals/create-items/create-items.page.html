@@ -1,0 +1,163 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<ion-header class="header_top">
+  <ion-toolbar>
+    <ion-title class="modal-title-full">Crear producto</ion-title>
+  </ion-toolbar>
+
+  <div class="modal-header">
+    <button (click)="closeInvoiceViewModal();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+</ion-header>
+
+<ion-content mode="ios" [formGroup]="addItemForm">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div class="tab_containers">
+                <mat-icon class="material-symbols-outlined tab-icon">menu</mat-icon>
+                <span>Detalle</span>
+              </div>
+            </ng-template>
+            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+              <ion-row>
+                <ion-col size="12" size-sm="4">
+                  <ion-item lines="none">
+                    <ion-label position="stacked" class="bold-label">Código de Item:</ion-label>
+                    <ion-input class="input_customer" type="text" formControlName="ItemID"
+                      placeholder="Ingrese el código del Item" [class.is-invalid]="f.ItemID.errors"></ion-input>
+                    <div *ngIf="f.ItemID.errors" class="invalid-feedback">
+                      <div *ngIf="f.ItemID.errors.required">Debes ingresar un código
+                        de item.</div>
+                      <div *ngIf="f.ItemID.errors.maxlength">El código de item no
+                        puede ser mayor a 50 caracteres.</div>
+                    </div>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-sm="4">
+                  <ion-item lines="none">
+                    <ion-label position="stacked" class="bold-label">Unidad de medida:</ion-label>
+                    <ion-select class="input_customer" interface="action-sheet" formControlName="UOMCode"
+                      [class.is-invalid]="f.UOMCode.errors" placeholder="Seleccione una unidad de medida">
+                      <ion-select-option [value]="uom.UOMCode" *ngFor="let uom of uoms">
+                        {{ uom.UOMDescription }}
+                      </ion-select-option>
+                    </ion-select>
+                    <div *ngIf="f.UOMCode.errors" class="invalid-feedback">
+                      <div *ngIf="f.UOMCode.errors.required">Debes seleccionar una unidad de medida.</div>
+                    </div>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-sm="4">
+                  <ion-item lines="none">
+                    <ion-label position="stacked" class="bold-label">Código de Item:</ion-label>
+                    <input currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',' }"
+                      class="input_customer form-control" formControlName="SalePrice"
+                      [ngClass]="{ 'is-invalid': f.SalePrice.errors }" />
+                    <div *ngIf="f.SalePrice.errors" class="invalid-feedback">
+                    </div>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" size-sm="4">
+                  <ion-item lines="none">
+                    <div class="card-body align-items-center d-flex justify-content-center"
+                      style="cursor: pointer;background:#e9e9e9;height: 219px; border-radius: 10px;">
+                      <img class="preview-image"
+                        [src]="addItemForm.get('Picture').value ? addItemForm.get('Picture').value : 'assets/images/_no-image-box.png'"
+                        style="max-width: 150px; min-width: 150px;"
+                        onclick="document.querySelector('#LoadFile').click()">
+                      <input style="display: none;" type="file" id="LoadFile" accept="image/*"
+                        (change)="readItemPicture($event)" />
+                    </div>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-sm="8">
+                  <ion-item lines="none">
+                    <ion-label position="stacked" class="bold-label">Descripción:</ion-label>
+                    <ion-textarea class="input_customer" type="text" placeholder="Ingrese el nombre del Item"
+                      style="height: 80px !important;" formControlName="ItemDescription">
+                    </ion-textarea>
+                    <div *ngIf="f.ItemDescription.errors" class="invalid-feedback">
+                      <div *ngIf="f.ItemDescription.errors.required">Debes ingresar
+                        una descripción.</div>
+                      <div *ngIf="f.ItemDescription.errors.maxlength">La descripción
+                        no puede ser mayor a 200 caracteres.</div>
+                    </div>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" size-sm="4">
+                  <ion-item lines="none">
+                    <ion-label class="bold-label">Inventariable</ion-label>
+                    <ion-checkbox class="input_customer" style="border: 0px !important; width: 60px;"
+                      formControlName="IsInventoryable" [class.is-invalid]="f.IsInventoryable.errors"></ion-checkbox>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </mat-tab>
+          <mat-tab *ngIf="addItemForm.value.IsInventoryable">
+            <ng-template mat-tab-label>
+              <div class="tab_containers">
+                <mat-icon class="material-symbols-outlined tab-icon">inventory_2</mat-icon>
+                <span>Inventario</span>
+              </div>
+            </ng-template>
+            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+
+            </ion-grid>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div class="tab_containers">
+                <mat-icon class="material-symbols-outlined tab-icon">calculate</mat-icon>
+                <span>Impuestos</span>
+              </div>
+            </ng-template>
+            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+
+            </ion-grid>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <div class="tab_containers">
+                <mat-icon class="material-symbols-outlined tab-icon">menu_open</mat-icon>
+                <span>Caracteristicas</span>
+              </div>
+            </ng-template>
+            <ion-grid style="min-height: 506px; max-height: 506px;" fixed>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item lines="none">
+                    <ion-label position="stacked" class="bold-label">Código de barras:</ion-label>
+                    <ion-input class="input_customer" type="text" formControlName="BarCode"
+                      placeholder="Ingrese el código de barras" [class.is-invalid]="f.BarCode.errors"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </mat-tab>
+        </mat-tab-group>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="10"></ion-col>
+      <ion-col size="12" size-sm="2">
+        <ion-button class="saveCustomer" (click)="Save()" fill="full" shape="round">
+          Guardar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

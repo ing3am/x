@@ -1,0 +1,361 @@
+h1 {
+    font-size: 40px !important;
+    color: var(--ion-color-primary) !important;
+    font-weight: bold !important;
+}
+.title-details{
+    font-size: 19px !important;
+    text-align: center;
+    color: white;
+    margin-top: 15px;
+}
+.header_top_details{
+    height: 60px;
+    >ion-toolbar {
+        --background: var(--ion-color-primary);
+        height: 100%;
+
+        .toolbar-title {
+            height: 60px !important;
+        }
+
+        & ion-icon {
+            top: 13px;
+            color: white !important;
+        }
+
+        >.modal-title {
+            color: white;
+            font-size: 24px;
+            text-align: inherit;
+            top: 12px;
+        }
+
+        .modal-title-full {
+            font-size: 24px !important;
+            text-align: center;
+            color: white;
+            top: 12px;
+        }
+        
+
+        >.modal-title-invoice {
+            color: white;
+            font-size: 18px;
+            font-weight: 10;
+            left: 185px;
+            top: 13px;
+            width: 390px;
+
+            @media screen and (max-width : 500px) {
+                left: 136px;
+            }
+
+        }
+    }
+}
+.image-menu {
+    width: 20% !important;
+}
+
+.header_top {
+    height: 60px !important;
+
+    >ion-toolbar {
+        --background: var(--ion-color-primary);
+        height: 100%;
+
+        .toolbar-title {
+            height: 60px !important;
+        }
+
+        & ion-icon {
+            top: 13px;
+            color: white !important;
+        }
+
+        >.modal-title {
+            color: white;
+            font-size: 24px;
+            text-align: inherit;
+            top: 12px;
+        }
+
+        .modal-title-full {
+            font-size: 24px !important;
+            text-align: center;
+            color: white;
+            top: 12px;
+        }
+        
+
+        >.modal-title-invoice {
+            color: white;
+            font-size: 18px;
+            font-weight: 10;
+            left: 185px;
+            top: 13px;
+            width: 390px;
+
+            @media screen and (max-width : 500px) {
+                left: 136px;
+            }
+
+        }
+    }
+}
+
+
+.toolbar_general {
+    background-color: var(--ion-color-primary);
+    color: white;
+    height: 87px;
+
+    @media screen and (max-width: 500px) {
+        height: 67px;
+    }
+
+    >ion-buttons {
+        margin-top: 46px;
+
+        @media screen and (max-width: 500px) {
+            margin-top: 16px !important;
+        }
+    }
+
+    >ion-title {
+        margin-top: 40px !important;
+        margin-left: 20px !important;
+
+        @media screen and (max-width: 500px) {
+            margin-top: 10px !important;
+        }
+    }
+}
+
+#toldo {
+    position: absolute;
+    top: 85px;
+    height: 20px;
+    width: 100%;
+    background-image: url('../../assets/images/toldoAmazonas.svg');
+    background-repeat: repeat-x;
+    opacity: 1;
+
+    @media screen and (max-width: 500px) {
+        top: 65px;
+        ;
+    }
+}
+
+
+
+ion-modal {
+    --border-radius: 20px !important;
+}
+
+
+.modal-header {
+    min-height: 16.42857143px;
+    padding: 15px;
+    border-bottom: 0px solid #e5e5e5
+}
+
+.modal-header .close {
+    &:hover {
+        opacity: 1 !important;
+    }
+}
+
+.modal-header .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    opacity: 1;
+    outline: 0;
+    z-index: 1050
+}
+
+.modal-header .close>span {
+    color: #ff2525;
+    text-shadow: none;
+    -webkit-transition: .3s;
+    transition: .3s;
+    border: 2px solid #fff;
+    font-size: 2rem;
+    display: block;
+    background-color: #f5f5f5;
+    padding: 0 7px;
+    opacity: 1 !important;
+    border-radius: 50px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3)
+}
+
+.modal-header .close:hover>span {
+    color: #fff;
+    background-color: #ff2525
+}
+
+.custom-button {
+    background-color: #FFA500; /* Cambia este color al que prefieras */
+    color: white; /* Cambia el color del texto del botón */
+  }
+
+.only-read-details{
+    border-radius: 6px;
+    border: 1px solid #a3a3a3;
+    background-color: #e9ecef;
+    text-align: center;
+    padding: 0px 0px 0px 3px;
+    margin-right: 2px;
+}
+.only-edit-details{
+    border-radius: 6px;
+    border: 1px solid #a3a3a3;
+    text-align: center;
+    padding: 0px 0px 0px 3px;
+    margin-right: 2px;
+}
+.fixed-height-grid-save {
+    height: 140px; /* Ajusta la altura fija según tus necesidades */
+    overflow-y: auto;
+    text-align: center;/* Opcional: Agrega un borde a la tabla si lo deseas */
+}
+
+.fixed-height-grid-save::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fixed-height-grid-save::-webkit-scrollbar-thumb {
+    background-color: var(--ion-color-primary); 
+    border-radius: 5px; 
+}
+
+.fixed-height-grid-save::-webkit-scrollbar-track {
+    background-color: rgba(0, 80, 133, 0.1); 
+    border-radius: 5px; 
+}
+.out-padding{
+    padding: 0px;
+}
+
+.truncate-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.data_cell_table{
+    text-align: center;
+    font-size: 11px;
+    padding: 0px;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid white;
+    padding-bottom: 2px;
+}
+
+.fixed-height-saved-items {
+    height: 345px; /* Ajusta la altura fija según tus necesidades */
+    overflow-y: auto;
+    border: 1px solid white; /* Opcional: Agrega un borde al contenedor si lo deseas */
+    text-align: start;/* Opcional: Agrega un borde a la tabla si lo deseas */
+}
+
+.fixed-height-saved-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fixed-height-saved-items::-webkit-scrollbar-thumb {
+    background-color: var(--ion-color-primary); 
+    border-radius: 5px; 
+}
+
+.fixed-height-saved-items::-webkit-scrollbar-track {
+    background-color: rgba(0, 80, 133, 0.1); 
+    border-radius: 5px; 
+}
+
+/*  
+.fixed-height-saved-items::-webkit-scrollbar{
+    width: 0.1em;
+}
+
+.fixed-height-saved-items::-webkit-scrollbar-thumb{
+    background-color: rgba(0, 0, 0, 0);
+}*/
+
+
+.custom-grid {
+    padding: 0;
+    border:1px solid lightgray;
+    border-radius: 10px;
+    background-color: #f8fcff;
+}
+
+.fixed-height-saved-details {
+    height: 150px; 
+    overflow-y: auto;
+    border: 1px solid white;
+}
+.fixed-height-saved-details::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fixed-height-saved-details::-webkit-scrollbar-thumb {
+    background-color: var(--ion-color-primary); 
+    border-radius: 5px; 
+}
+
+.fixed-height-saved-details::-webkit-scrollbar-track {
+    background-color: rgba(0, 80, 133, 0.1); 
+    border-radius: 5px; 
+}
+
+.selected-item {
+    background-color: rgb(53, 53, 53);
+    color: white;
+}
+  
+.list-item-details {
+    margin: 1px 0px 8px 0px;
+    padding: 7px 2px 7px 8px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+}
+
+.center-content-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px; /* O ajusta esta altura según tus necesidades */
+  }
+
+.custom-icon-save-detail {
+    font-size: 160px; /* Ajusta el tamaño del icono según tus necesidades */
+    color: rgb(223, 238, 255); /* Cambia el color del icono según tus necesidades */
+}
+
+.badge-hidden {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.col-with-badge {
+    position: relative;
+  }
+  
+  .badge-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+  }
+  
+
+
+
+

@@ -1,0 +1,55 @@
+<div *ngIf="loading" class="spinner-wrapper">
+  <app-loading></app-loading>
+</div>
+
+<ion-header class="header_top">
+  <ion-toolbar>
+    <ion-title class="modal-title" style="margin-left: -60px;">Buscar Cliente</ion-title>
+  </ion-toolbar>
+  <div class="modal-header">
+    <button (click)="closeInvoiceViewModal();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+
+</ion-header>
+
+<ion-content mode="ios">
+  <ion-grid fixed style="padding: 10px;">
+    <ion-row>
+      <ion-col size="12">
+        <dx-data-grid [dataSource]="customers" [showBorders]="true" [rowAlternationEnabled]="true"
+          [allowColumnReordering]="true" [columnMinWidth]="50" [columnAutoWidth]="true">
+          <dxo-load-panel [enabled]="true"></dxo-load-panel>
+          <dxo-selection mode="single"></dxo-selection>
+          <dxo-search-panel id="search" [visible]="true" width="249"></dxo-search-panel>
+          <dxo-paging [pageSize]="18"></dxo-paging>
+          <dxo-pager [showNavigationButtons]="true" [showInfo]="true"></dxo-pager>
+
+          <dxi-column name="TerceroNumActions" caption="Acciones" alignment="center" cellTemplate="actions"
+            [allowExporting]="false"></dxi-column>
+
+          <dxi-column dataField="TerceroNum" name="TerceroNum" caption="ID" alignment="left"
+            sortOrder="desc"></dxi-column>
+          <dxi-column dataField="SearchWord" caption="Nombre" alignment="left" cellTemplate="nameCell"></dxi-column>
+
+
+
+          <div *dxTemplate="let cellData of 'nameCell'">
+            <td *ngIf="cellData.value == ''">{{cellData.data.FirstName}} {{cellData.data.AnotherName}}
+              {{cellData.data.FirstLastName}} {{cellData.data.SecondLastName}}</td>
+            <td *ngIf="cellData.value != ''">{{cellData.value}}</td>
+          </div>
+
+          <div *dxTemplate="let cellData of 'actions'">
+            <ion-button style="display: contents;" title="Editar" (click)="actions(cellData.data)" fill="clear"
+              shape="round">
+              <ion-icon name="arrow-forward-outline" color="primary" aria-label="Editar" class="custom-icon"
+                style="cursor: pointer;"></ion-icon>
+            </ion-button>
+          </div>
+        </dx-data-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
