@@ -16,6 +16,7 @@
     "@angular/animations": "~13.4.0",
     "@angular/cdk": "^13.3.9",
     "@angular/common": "~13.4.0",
+    "@ng-select/ng-select": "^7.4.0",
     "@angular/core": "~13.4.0",
     "@angular/forms": "~13.4.0",
     "@angular/material": "^13.3.9",
